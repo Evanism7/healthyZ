@@ -10,7 +10,7 @@ public partial class MainScreen : ContentPage
 	//©ç·Ó¤ÀªR
     private void PhotoanalysisClicked(object sender, EventArgs e)
     {
-        
+        Shell.Current.GoToAsync("Photograph");
     }
 
     //¶¼­¹¬ö¿ý
