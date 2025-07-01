@@ -6,45 +6,46 @@
     <StackLayout Padding="30" Spacing="20"
                  VerticalOptions="Center">
 
-        <Label Text="請輸入帳號與密碼" FontSize="20" HorizontalOptions="Center" TextColor="Black"/>
+        <Label Text="請輸入帳號與密碼" 
+               FontSize="20" 
+               TextColor="#48786F"
+               HorizontalOptions="Center"/>
 
-        <HorizontalStackLayout>
-            <Label Text="帳號:" 
-            FontSize="20" 
-            VerticalOptions="Center"
-            Margin="0,0,20,0"
-             TextColor="Black"
-            />
-            <Entry x:Name="entryUid" 
-            Placeholder="請輸入手機號碼"
-            WidthRequest="400"
-            TextColor="Black"
-            />
+        <Entry x:Name="entryUid" 
+               Placeholder="帳號" 
+               Keyboard="Email"
+               WidthRequest="250"
+               HorizontalOptions="Center"
+               TextColor="#48786F"
+               BackgroundColor="#80FFFFFF"
+               />
 
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="密碼:"  
-            FontSize="20" 
-            VerticalOptions="Center"
-            Margin="0,0,20,0"
-            TextColor="Black"/>
-            <Entry x:Name="entryPwd" 
-            Placeholder="請輸入密碼" 
-            WidthRequest="400"
-             TextColor="Black"
-                />
-        </HorizontalStackLayout>
-            
+        <Entry x:Name="entryPwd" 
+               Placeholder="密碼" 
+               IsPassword="True"
+               WidthRequest="250"
+               HorizontalOptions="Center"
+               TextColor="#48786F"
+               BackgroundColor="#80FFFFFF"
+               />
+
         <Button Text="登入"
-                WidthRequest="300"
                 Clicked="OnLoginClicked"
-                BackgroundColor="DarkBlue"
-                TextColor="White"/>
+                WidthRequest="250"
+                HorizontalOptions="Center"
+                TextColor="#48786F"
+                BackgroundColor="#9AC7BF"
+                BorderColor="#67AB9F"
+                BorderWidth="1"/>
+
         <Button Text="註冊" 
-                WidthRequest="300"
                 Clicked="OnRegisterClicked" 
-                BackgroundColor="LightGray" 
-                TextColor="Black"/>
+                WidthRequest="250"
+                HorizontalOptions="Center"
+                TextColor="#48786F"
+                BackgroundColor="#9AC7BF"
+                BorderColor="#67AB9F"
+                BorderWidth="1"/>
 
     </StackLayout>
 </ContentPage>
