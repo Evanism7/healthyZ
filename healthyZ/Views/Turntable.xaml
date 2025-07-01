@@ -5,14 +5,54 @@
              Title="轉盤"
              BackgroundColor="#D5E8D4">
     <VerticalStackLayout>
-        <Label 
-            Text=" "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry x:Name="entryPwd" Placeholder="食物名稱" IsPassword="True" />
-        <Button Text="編輯"
-        Clicked="TurntableClicked"
-        BackgroundColor="DarkBlue"
-        TextColor="White"/>
+        <!-- 轉盤區域（建議放最上方） -->
+        <Frame BackgroundColor="White"
+       BorderColor="#67AB9F"
+       CornerRadius="150"
+       Padding="0"
+       HasShadow="False"
+       HorizontalOptions="Center"
+       VerticalOptions="Center"
+       HeightRequest="300"
+       WidthRequest="300">
+            <GraphicsView x:Name="WheelView"
+              HeightRequest="300"
+              WidthRequest="300"
+              HorizontalOptions="Center"
+              VerticalOptions="Center">
+                <GraphicsView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSpinClicked"/>
+                </GraphicsView.GestureRecognizers>
+            </GraphicsView>
+        </Frame>
+        <!-- 可滾動多行輸入區 -->
+        <ScrollView Orientation="Horizontal"
+    HorizontalOptions="Center"
+    VerticalOptions="End"
+    Margin="0,0,0,20">
+            <HorizontalStackLayout>
+                <Editor x:Name="FoodEditor"
+            Placeholder="每行輸入一種想吃的東西"
+            WidthRequest="200"
+            BackgroundColor="White"
+            AutoSize="TextChanges"
+            HeightRequest="60"
+            Margin="0,20,0,0"
+            HorizontalOptions="Center"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+        <!-- 新增與重置按鈕並排 -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" Margin="0,10,0,0">
+            <Button Text="重置"
+            Clicked="OnResetClicked"
+            BackgroundColor="#F27272"
+            TextColor="#48786F"
+            WidthRequest="100"/>
+            <Button Text="新增"
+            Clicked="OnAddClicked"
+            BackgroundColor="#9AC7BF"
+            TextColor="#48786F"
+            WidthRequest="100"/>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
