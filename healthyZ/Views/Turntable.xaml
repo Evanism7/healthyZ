@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthy.Views.Turntable"
+             Title="轉盤"
+             BackgroundColor="#D5E8D4">
+    <VerticalStackLayout>
+        <Label 
+            Text=" "
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry x:Name="entryPwd" Placeholder="食物名稱" IsPassword="True" />
+        <Button Text="編輯"
+        Clicked="TurntableClicked"
+        BackgroundColor="DarkBlue"
+        TextColor="White"/>
+    </VerticalStackLayout>
+</ContentPage>

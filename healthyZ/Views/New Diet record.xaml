@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthy.Views.New_Diet_record"
+             Title="新增紀錄" BackgroundColor="#D5E8D4">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15" >
+            <Label Text="食物名稱" FontAttributes="Bold" TextColor="Black" />
+            <Entry x:Name="titleEntry"  Placeholder="請輸入食物" TextColor="Black"/>
+            <Label Text="營養資訊" FontAttributes="Bold" TextColor="Black" />
+            <Editor x:Name="todoEditor"  Placeholder="內容" AutoSize="TextChanges" HeightRequest="120" TextColor="Black"/>
+            <DatePicker x:Name="actTimePicker"   BackgroundColor="DarkSlateBlue" TextColor="White"/>
+
+            <Label Text="照片" FontAttributes="Bold" TextColor="Black" />
+            <CollectionView x:Name="photoCollection" 
+                            ItemsLayout="HorizontalList" 
+                            HeightRequest="120"
+                            SelectionMode="Single"
+                            SelectionChanged="OnPhotoSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" WidthRequest="100" HeightRequest="100" Margin="5" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Image x:Name="PhotoImage" WidthRequest="200" HeightRequest="200" />
+
+            <Button Text="📷 拍照" Clicked="OnTakePhotoClicked" BackgroundColor="DarkSlateBlue" TextColor="White"/>
+            <Button Text="✅ 儲存" Clicked="OnSaveClicked" BackgroundColor="DarkGreen" TextColor="White"/>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

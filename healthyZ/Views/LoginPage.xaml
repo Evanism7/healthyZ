@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthy.Views.LoginPage"
+             Title="請登入" BackgroundColor="#D5E8D4">
+    <StackLayout Padding="30" Spacing="20"
+                 VerticalOptions="Center">
+
+        <Label Text="請輸入帳號與密碼" FontSize="20" HorizontalOptions="Center" TextColor="Black"/>
+
+        <HorizontalStackLayout>
+            <Label Text="帳號:" 
+            FontSize="20" 
+            VerticalOptions="Center"
+            Margin="0,0,20,0"
+             TextColor="Black"
+            />
+            <Entry x:Name="entryUid" 
+            Placeholder="請輸入手機號碼"
+            WidthRequest="400"
+            TextColor="Black"
+            />
+
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="密碼:"  
+            FontSize="20" 
+            VerticalOptions="Center"
+            Margin="0,0,20,0"
+            TextColor="Black"/>
+            <Entry x:Name="entryPwd" 
+            Placeholder="請輸入密碼" 
+            WidthRequest="400"
+             TextColor="Black"
+                />
+        </HorizontalStackLayout>
+            
+        <Button Text="登入"
+                WidthRequest="300"
+                Clicked="OnLoginClicked"
+                BackgroundColor="DarkBlue"
+                TextColor="White"/>
+        <Button Text="註冊" 
+                WidthRequest="300"
+                Clicked="OnRegisterClicked" 
+                BackgroundColor="LightGray" 
+                TextColor="Black"/>
+
+    </StackLayout>
+</ContentPage>

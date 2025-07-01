@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthy.Views.Diet_record"
+             Title="飲食紀錄" BackgroundColor="#D5E8D4">
+    <StackLayout Padding="10">
+
+        <ListView x:Name="notesListView"
+                  ItemTapped="OnItemTapped"
+                  HasUnevenRows="True"
+                  Margin="0,10,0,10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                        <StackLayout Padding="10" BackgroundColor="#eeeeee" Margin="0,5">
+                            <Label Text="{Binding title}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="{Binding todoJob}" FontSize="14" TextColor="Gray" />
+                            <Label Text="{Binding ActTime, StringFormat='完成日: {0:yyyy-MM-dd}'}" FontSize="12" TextColor="DarkGray"/>
+                        </StackLayout>
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="➕ 新增紀錄"
+                Clicked="OnAddNoteClicked"
+                BackgroundColor="DarkGreen"
+                TextColor="White"/>
+
+    </StackLayout>
+</ContentPage>

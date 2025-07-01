@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthy.Views.MainScreen"
+             Title="主畫面"
+             BackgroundColor="#D5E8D4">
+    <VerticalStackLayout>
+        <Button Text="拍照分析"
+        Clicked="PhotoanalysisClicked"
+        BackgroundColor="DarkBlue"
+        ImageSource="photoanalysis.png"
+        TextColor="White"/>
+
+        <Button Text="飲食紀錄"
+        Clicked="DietRecordClicked"
+        BackgroundColor="DarkBlue"
+        TextColor="White"/>
+
+        <Button Text="地圖-餐點查詢"
+        Clicked="MealInquiryClicked"
+        BackgroundColor="DarkBlue"
+        TextColor="White"/>
+
+        <Button Text="轉盤"
+        Clicked="TurntableClicked"
+        BackgroundColor="DarkBlue"
+        TextColor="White"/>
+
+        <Button Text="我的"
+        Clicked="mineClicked"
+        BackgroundColor="DarkBlue"
+        TextColor="White"/>
+
+        <Button Text="AI助理"
+        Clicked="AIAssistantClicked"
+        BackgroundColor="DarkBlue"
+        TextColor="White"/>
+
+    </VerticalStackLayout>
+</ContentPage>

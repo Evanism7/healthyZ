@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthy.Views.AIAssistant"
+             Title="AI助理"
+             BackgroundColor="#D5E8D4">
+    <Grid Padding="20" RowSpacing="10" BackgroundColor="#80ffffff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 標題 -->
+        <Label Text="AI助理" FontSize="24" FontAttributes="Bold"
+               HorizontalOptions="Center" TextColor="DarkGreen" />
+
+        <!-- 提示按鈕 -->
+        <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10" Margin="0,0,0,50">
+            <Button Text="我今天攝取的蛋白質為幾%、碳水化合物為幾%、脂肪為幾%" Clicked="Prompt1_Clicked"  BackgroundColor="#D5E8D4" TextColor="Black"/>
+            <Button Text="推薦我明天可以吃哪些健康餐？" Clicked="Prompt2_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" />
+            <Button Text="我今天攝取的熱量為幾Kcal？" Clicked="Prompt3_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" />
+            <Button Text="我目前的BMI為多少？" Clicked="Prompt4_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" />
+        </StackLayout>
+
+        <!-- 聊天框 -->
+        <ScrollView Grid.Row="2" x:Name="ChatScroll">
+            <StackLayout x:Name="ChatStack" Spacing="10" />
+        </ScrollView>
+        
+        
+
+        <!-- 輸入列 -->
+        <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10" Margin="0,50,0,0">
+            <Entry x:Name="InputEntry" Placeholder="請輸入訊息..." HorizontalOptions="FillAndExpand"/>
+            <Button Text="➤" Clicked="SendButton_Clicked" BackgroundColor="#A5D6A7" TextColor="White"/>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>
