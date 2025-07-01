@@ -11,7 +11,7 @@ public partial class AIAssistant : ContentPage
 	//提示按鈕1
     private void Prompt1_Clicked(object sender, EventArgs e)
     {
-        var msg = "我今天攝取的蛋白質夠嗎？";
+        var msg = "我今天攝取的蛋白質為幾%、碳水化合物為幾%、脂肪為幾%";
         AddUserMessage(msg);
         SimulateAIResponse(msg);
     }

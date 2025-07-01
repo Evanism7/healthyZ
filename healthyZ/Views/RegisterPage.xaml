@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.RegisterPage"
-             Title="註冊">
+             Title="註冊" BackgroundColor="#D5E8D4">
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
 
-            <Entry x:Name="uidEntry" Placeholder="手機號碼 (帳號)" Keyboard="Telephone"/>
+            <Entry x:Name="uidEntry" Placeholder="帳號" Keyboard="Telephone"/>
             <Entry x:Name="nameEntry" Placeholder="稱呼"/>
             <Entry x:Name="pwdEntry" Placeholder="密碼" IsPassword="True"/>
             <Entry x:Name="confirmPwdEntry" Placeholder="確認密碼" IsPassword="True"/>

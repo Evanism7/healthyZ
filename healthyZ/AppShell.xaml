@@ -5,11 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:healthyZ"
     xmlns:views="clr-namespace:healthy.Views"
-    Title="healthyZ">
+    Title="食在健康">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="MainPage" />
+        Route="MainPage" 
+        Shell.BackgroundColor="#D5E8D4"/>
 
 </Shell>
