@@ -34,12 +34,12 @@ public partial class MainScreen : ContentPage
     //我的
     private void mineClicked(object sender, EventArgs e)
     {
-
+        Shell.Current.GoToAsync("Myprofile");
     }
 
     //AI助理
     private void AIAssistantClicked(object sender, EventArgs e)
     {
-
+        Shell.Current.GoToAsync("AIAssistant");
     }
 }
