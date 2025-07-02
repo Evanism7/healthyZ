@@ -1,18 +1,44 @@
+using Microsoft.Maui.Storage;
+using healthyZ.Models;
+using Supabase.Postgrest;
+
 namespace healthy.Views;
 
 public partial class Diet_record : ContentPage
 {
-	public Diet_record()
-	{
-		InitializeComponent();
-	}
+    private Supabase.Client _client;
+    public Diet_record()
+    {
+        InitializeComponent();
 
-    // 點按單筆記事時將該筆傳送編輯頁面並開啟點按單筆記事時將該筆傳送編輯頁面並開啟
+        SupabaseClient supabaseClient = new SupabaseClient();
+        _client = supabaseClient.GetClient();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        LoadRecordsAsync();
+    }
+
+    private async void LoadRecordsAsync()
+    {
+        var account_id = Preferences.Get("account_id", string.Empty);
+        
+
+        var result = await _client
+            .From<DietRecord>()
+            .Where(x => x.account_id == account_id)
+            .Order(x => x.day,Constants.Ordering.Ascending)
+            .Get();
+
+        recordListView.ItemsSource = result.Models;
+    }
+
     private void OnItemTapped(object sender, ItemTappedEventArgs e)
     {
-        
+        // 可根據需求導向編輯頁
     }
-    // 點按新增記事按鈕時開啟新增記事頁面
 
     private void OnAddNoteClicked(object sender, EventArgs e)
     {
