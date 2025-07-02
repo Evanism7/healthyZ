@@ -12,8 +12,8 @@
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnRestaurantTapped" />
                         </StackLayout.GestureRecognizers>
-                        <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
-                        <Label Text="{Binding Address}" FontSize="14"/>
+                        <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="{Binding Address}" FontSize="14" TextColor="Black"/>
                     </StackLayout>
                 </Frame>
             </DataTemplate>

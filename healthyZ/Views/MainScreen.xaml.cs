@@ -30,7 +30,7 @@ public partial class MainScreen : ContentPage
     //¦a¹Ï
     private void MealInquiryClicked(object sender, EventArgs e)
     {
-
+        Shell.Current.GoToAsync("RestaurantPage");
     }
 
     //Âà½L
