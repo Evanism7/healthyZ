@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="healthy.RegisterPage"
              Title="註冊" BackgroundColor="#D5E8D4">
     <ScrollView>
-        <StackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
 
-            <Entry x:Name="uidEntry" Placeholder="帳號" Keyboard="Telephone"/>
-            <Entry x:Name="nameEntry" Placeholder="稱呼"/>
-            <Entry x:Name="pwdEntry" Placeholder="密碼" IsPassword="True"/>
-            <Entry x:Name="confirmPwdEntry" Placeholder="確認密碼" IsPassword="True"/>
+            <Label Text="使用者名稱" TextColor="Black" />
+            <Entry x:Name="usernameEntry" Placeholder="輸入名稱" TextColor="Black" />
 
-            <Button Text="送出註冊" Clicked="OnRegisterClicked" BackgroundColor="DarkGreen" TextColor="White"/>
+            <Label Text="帳號" TextColor="Black" />
+            <Entry x:Name="accountEntry" Placeholder="輸入帳號" TextColor="Black" />
 
-        </StackLayout>
+            <Label Text="密碼" TextColor="Black" />
+            <Entry x:Name="passwordEntry" IsPassword="True" Placeholder="輸入密碼" TextColor="Black" />
+
+            <Label Text="生日" TextColor="Black" />
+            <DatePicker x:Name="birthdayPicker" MaximumDate="{x:Static sys:DateTime.Today}"  TextColor="Black"/>
+
+            <Label Text="身高（cm）" TextColor="Black" />
+            <Entry x:Name="heightEntry" Keyboard="Numeric" Placeholder="例如：170" TextColor="Black" />
+
+            <Label Text="體重（kg）" TextColor="Black" />
+            <Entry x:Name="weightEntry" Keyboard="Numeric" Placeholder="例如：65" TextColor="Black" />
+
+            <Button Text="註冊" Clicked="OnRegisterClicked" />
+            <Label x:Name="messageLabel" TextColor="Red" />
+
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
