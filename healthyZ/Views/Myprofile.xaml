@@ -8,27 +8,27 @@
     <VerticalStackLayout Spacing="28" Padding="9,30,0,0" HorizontalOptions="Start">
         <HorizontalStackLayout>
             <Label Text="使用者名稱：" TextColor="Black"/>
-            <Label x:Name="usernameLabel" TextColor="Black"/>
+            <Label x:Name="usernameLabel" TextColor="#48786F"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label Text="帳號：" TextColor="Black"/>
-            <Label x:Name="accountLabel" TextColor="Black"/>
+            <Label x:Name="accountLabel" TextColor="#48786F"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label Text="生日：" TextColor="Black"/>
-            <Label x:Name="birthdayLabel" TextColor="Black"/>
+            <Label x:Name="birthdayLabel" TextColor="#48786F"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label Text="年齡：" TextColor="Black"/>
-            <Label x:Name="ageLabel" TextColor="Black"/>
+            <Label x:Name="ageLabel" TextColor="#48786F"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
-            <Label Text="身高（cm）：" TextColor="Black"/>
-            <Entry x:Name="heightEntry" WidthRequest="80" Keyboard="Numeric" TextColor="Black"/>
+            <Label Text="身高（cm）：" TextColor="Black" VerticalTextAlignment="Center"/>
+            <Entry x:Name="heightEntry" WidthRequest="80" HeightRequest="40" Keyboard="Numeric" TextColor="#48786F" VerticalOptions="Center"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
-            <Label Text="體重（kg）：" TextColor="Black"/>
-            <Entry x:Name="weightEntry" WidthRequest="80" Keyboard="Numeric" TextColor="Black"/>
+            <Label Text="體重（kg）：" TextColor="Black" VerticalTextAlignment="Center"/>
+            <Entry x:Name="weightEntry" WidthRequest="80" HeightRequest="40" Keyboard="Numeric" TextColor="#48786F" VerticalOptions="Center"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label Text="BMI：" TextColor="Black" />

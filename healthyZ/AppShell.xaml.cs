@@ -20,14 +20,13 @@
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            bool result = await DisplayAlert("確認", "確定要登出嗎？", "是", "否");
-            if (result)
+            bool answer = await this.DisplayAlert("登出確認", "您確定要登出嗎？", "是", "否");
+            if (answer)
             {
-                // 清除偏好設定中記錄的使用者資訊
-                Preferences.Clear();
-                // 重新導向到登入頁面
+                // 回到登入頁面，並清除導覽堆疊
                 await Shell.Current.GoToAsync("//login");
             }
+            // 否則什麼都不做，停留在原畫面
         }
     }
 }
