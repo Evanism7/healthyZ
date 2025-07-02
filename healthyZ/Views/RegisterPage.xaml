@@ -25,8 +25,11 @@
             <Label Text="體重（kg）" TextColor="Black" />
             <Entry x:Name="weightEntry" Keyboard="Numeric" Placeholder="例如：65" TextColor="#48786F" BackgroundColor="#80FFFFFF" />
 
+            
+            
             <Button Text="註冊" Clicked="OnRegisterClicked" TextColor="#48786F" BackgroundColor="#9AC7BF" BorderColor="#67AB9F" BorderWidth="1" />
             <Label x:Name="messageLabel" TextColor="Red" />
+           
 
         </VerticalStackLayout>
     </ScrollView>

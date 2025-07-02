@@ -29,6 +29,7 @@ public partial class RegisterPage : ContentPage
 
             decimal bmi = weight / ((height / 100) * (height / 100));
 
+
         // 檢查必填欄位是否填寫
         if (string.IsNullOrWhiteSpace(account_id) || string.IsNullOrWhiteSpace(username) ||
            string.IsNullOrWhiteSpace(password))
