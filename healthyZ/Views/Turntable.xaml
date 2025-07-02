@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.Turntable"
              Title="轉盤"
+             Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
     <VerticalStackLayout>
         <!-- 轉盤區域（建議放最上方） -->
