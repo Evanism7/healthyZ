@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.MainScreen"
-             Title="主畫面"
              BackgroundColor="#D5E8D4">
     <VerticalStackLayout>
         <Label x:Name="usernameLabel"
