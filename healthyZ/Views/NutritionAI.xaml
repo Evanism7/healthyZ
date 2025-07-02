@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthyZ.Views.NutritionAI"
+             Title="AI 分析結果" BackgroundColor="#D5E8D4">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20" BackgroundColor="#E3F3EB">
+
+            <!-- 食物圖示與卡路里 -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Image Source="burger.png" WidthRequest="100" HeightRequest="100" />
+                <VerticalStackLayout>
+                    <Label Text="卡路里" FontSize="16" />
+                    <Label x:Name="lblCalories" Text="250 Kcal" FontSize="24" FontAttributes="Bold" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <!-- 圓餅圖 -->
+            <Label Text="三大營養成分比例" FontSize="18" HorizontalOptions="Center" />
+
+            <!-- 成分百分比 -->
+            <Label x:Name="lblCarbs" Text="碳水化合物：59.6%" FontSize="16" TextColor="Orange" />
+            <Label x:Name="lblFat" Text="脂肪：17.3%" FontSize="16" TextColor="Red" />
+            <Label x:Name="lblProtein" Text="蛋白質：23.1%" FontSize="16" TextColor="Green" />
+
+            <!-- 操作按鈕 -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
+                <Button Text="清除" Clicked="OnDeleteClicked" BackgroundColor="#F44336" TextColor="White" WidthRequest="100"/>
+                <Button Text="確認" Clicked="OnConfirmClicked" BackgroundColor="#4CAF50" TextColor="White" WidthRequest="100"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
