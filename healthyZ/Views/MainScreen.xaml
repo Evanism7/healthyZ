@@ -5,13 +5,20 @@
              Title="主畫面"
              Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
-    <Grid RowDefinitions="Auto,Auto,Auto"
-          ColumnDefinitions="Auto,Auto"
-          Padding="20"
-          HorizontalOptions="Center"
-          VerticalOptions="Center"
-          RowSpacing="20"
-          ColumnSpacing="20">
+    <VerticalStackLayout>
+        <Label x:Name="usernameLabel"
+               Text="歡迎，使用者"
+               FontSize="18"
+               TextColor="#48786F"
+               HorizontalOptions="Start"
+               Margin="10,10,0,0"/>
+        <Grid RowDefinitions="Auto,Auto,Auto"
+              ColumnDefinitions="Auto,Auto"
+              Padding="20"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              RowSpacing="20"
+              ColumnSpacing="20">
 
         <!-- 第一列 -->
         <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
