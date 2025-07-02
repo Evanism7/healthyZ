@@ -8,7 +8,7 @@
     Title="食在健康">
 
     <ShellContent
-        Title="Home"
+        Title="登入"
         ContentTemplate="{DataTemplate views:LoginPage}"
         Route="MainPage" 
         Shell.BackgroundColor="#D5E8D4"/>
