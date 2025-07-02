@@ -27,9 +27,9 @@
         </Frame>
         <!-- 可滾動多行輸入區 -->
         <ScrollView Orientation="Horizontal"
-    HorizontalOptions="Center"
-    VerticalOptions="End"
-    Margin="0,0,0,20">
+         HorizontalOptions="Center"
+         VerticalOptions="End"
+         Margin="0,0,0,20">
             <HorizontalStackLayout>
                 <Editor x:Name="FoodEditor"
             Placeholder="每行輸入一種想吃的東西"

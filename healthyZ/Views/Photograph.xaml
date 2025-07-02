@@ -5,24 +5,38 @@
              Title="拍照分析" BackgroundColor="#D5E8D4">
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
-            <Label Text="照片" FontAttributes="Bold" />
             <VerticalStackLayout>
-                <Image x:Name="photoImage"
-            WidthRequest="300"
-            HeightRequest="300"
-            Aspect="AspectFill" />
+                <Border
+                Stroke="#67AB9F"
+                StrokeThickness="3"
+                StrokeShape="RoundRectangle 30"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                    <Image x:Name="photoImage"
+                     WidthRequest="300"
+                     HeightRequest="300"
+                     Aspect="AspectFill" />
+                </Border>
                 <!-- 其他控制項 -->
             </VerticalStackLayout>
-
-            <Grid ColumnDefinitions="*,Auto,*" Padding="0,20,0,0">
-                <DatePicker x:Name="actTimePicker"/>
-                <Button Grid.Column="3" Text="✈" Clicked="OnNextstepClicked" BackgroundColor="SteelBlue" TextColor="White"
-                    CornerRadius="18" WidthRequest="60" HeightRequest="35" FontSize="20" HorizontalOptions="Center"/>
-                <Button Grid.Column="5" Text="🖼️" Clicked="OnPickPhotoClicked" BackgroundColor="DarkOliveGreen" TextColor="White"
-                    CornerRadius="18" WidthRequest="60" HeightRequest="35" FontSize="20" HorizontalOptions="End"/>
-            </Grid>
-            <Button Grid.Column="3" Text="📷" Clicked="OnTakePhotoClicked" BackgroundColor="DarkSlateBlue" TextColor="White" CornerRadius="50" WidthRequest="100" 
-    HeightRequest="100" FontSize="24" HorizontalOptions="Center"/>
+            <HorizontalStackLayout Margin="0,20,0,0" HorizontalOptions="Center" Spacing="15">
+                <ImageButton Source="myfiles.png"   
+             Clicked="OnPickPhotoClicked"
+             WidthRequest="60"
+             HeightRequest="35"
+             VerticalOptions="End"/>
+                <ImageButton Source="takephoto.png"
+             Clicked="OnTakePhotoClicked"
+             CornerRadius="50"
+             WidthRequest="100"
+             HeightRequest="100"
+             VerticalOptions="End"/>
+                <ImageButton Source="send.png"
+             Clicked="OnNextstepClicked"
+             WidthRequest="60"
+             HeightRequest="35"
+             VerticalOptions="End"/>
+            </HorizontalStackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>
