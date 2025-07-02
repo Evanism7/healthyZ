@@ -24,15 +24,16 @@
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label Text="身高（cm）：" TextColor="Black"/>
-            <Label x:Name="heightLabel" TextColor="Black"/>
+            <Entry x:Name="heightEntry" WidthRequest="80" Keyboard="Numeric" TextColor="Black"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label Text="體重（kg）：" TextColor="Black"/>
-            <Label x:Name="weightLabel" TextColor="Black"/>
+            <Entry x:Name="weightEntry" WidthRequest="80" Keyboard="Numeric" TextColor="Black"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
-            <Label Text="BMI：" TextColor="Black"/>
-            <Label x:Name="bmiLabel" TextColor="Black"/>
+            <Label Text="BMI：" TextColor="Black" />
+            <Label x:Name="bmiLabel"/>
         </HorizontalStackLayout>
+        <Button Text="儲存" Clicked="OnSaveClicked" BackgroundColor="#67AB9F" TextColor="White" WidthRequest="100"/>
     </VerticalStackLayout>
 </ContentPage>
