@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.Myprofile"
              Title="我的"
+             Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
     <Grid RowDefinitions="*,*,*,*,*,*,*"
       ColumnDefinitions="*"

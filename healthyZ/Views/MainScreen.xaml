@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.MainScreen"
              Title="主畫面"
-             
+             Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
     <Grid RowDefinitions="Auto,Auto,Auto"
           ColumnDefinitions="Auto,Auto"
@@ -14,50 +14,54 @@
           ColumnSpacing="20">
 
         <!-- 第一列 -->
-        <Button Grid.Row="0" Grid.Column="0"
-                WidthRequest="100" HeightRequest="100"
-                Text="拍照分析"
-                Clicked="PhotoanalysisClicked"
-                BackgroundColor="#FADADD"
-                ImageSource="photoanalysis.png"
-                TextColor="#48786F"/>
+        <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
+            <Button WidthRequest="100" HeightRequest="100"
+            Clicked="PhotoanalysisClicked"
+            BackgroundColor="#FADADD"
+            ImageSource="photograph.png"/>
+            <Label Text="拍照分析" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+        </VerticalStackLayout>
 
-        <Button Grid.Row="0" Grid.Column="1"
-                WidthRequest="100" HeightRequest="100"
-                Text="飲食紀錄"
-                Clicked="DietRecordClicked"
-                BackgroundColor="#E6DAF7"
-                TextColor="#48786F"/>
+        <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
+            <Button WidthRequest="100" HeightRequest="100"
+            Clicked="DietRecordClicked"
+            BackgroundColor="#E6DAF7"
+            ImageSource="dietrecord.png"/>
+            <Label Text="飲食紀錄" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+        </VerticalStackLayout>
 
         <!-- 第二列 -->
-        <Button Grid.Row="1" Grid.Column="0"
-                WidthRequest="100" HeightRequest="100"
-                Text="地圖-餐點查詢"
-                Clicked="MealInquiryClicked"
-                BackgroundColor="#FFD1A4"
-                TextColor="#48786F"/>
+        <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
+            <Button WidthRequest="100" HeightRequest="100"
+            Clicked="MealInquiryClicked"
+            BackgroundColor="#FFD1A4"
+            ImageSource="meal.png"/>
+            <Label Text="餐廳查詢" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+        </VerticalStackLayout>
 
-        <Button Grid.Row="1" Grid.Column="1"
-                WidthRequest="100" HeightRequest="100"
-                Text="轉盤"
-                Clicked="TurntableClicked"
-                BackgroundColor="#FFF2CC"
-                TextColor="#48786F"/>
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
+            <Button WidthRequest="100" HeightRequest="100"
+            Clicked="TurntableClicked"
+            BackgroundColor="#FFF2CC"
+            ImageSource="turntable.png"/>
+            <Label Text="轉盤" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+        </VerticalStackLayout>
 
         <!-- 第三列 -->
-        <Button Grid.Row="2" Grid.Column="0"
-                WidthRequest="100" HeightRequest="100"
-                Text="我的"
-                Clicked="mineClicked"
-                BackgroundColor="#FAF9F6"
-                TextColor="#48786F"/>
+        <VerticalStackLayout Grid.Row="2" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
+            <Button WidthRequest="100" HeightRequest="100"
+            Clicked="mineClicked"
+            BackgroundColor="#FAF9F6"
+            ImageSource="myprofile.png"/>
+            <Label Text="我的" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+        </VerticalStackLayout>
 
-        <Button Grid.Row="2" Grid.Column="1"
-                WidthRequest="100" HeightRequest="100"
-                Text="AI助理"
-                Clicked="AIAssistantClicked"
-                BackgroundColor="#D0E6FA"
-                TextColor="#48786F"/>
-
+        <VerticalStackLayout Grid.Row="2" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
+            <Button WidthRequest="100" HeightRequest="100"
+            Clicked="AIAssistantClicked"
+            BackgroundColor="#D0E6FA"
+            ImageSource="assistant.png"/>
+            <Label Text="AI助理" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
