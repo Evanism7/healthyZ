@@ -28,8 +28,6 @@
             <StackLayout x:Name="ChatStack" Spacing="10" />
         </ScrollView>
         
-        
-
         <!-- 輸入列 -->
         <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10" Margin="0,50,0,0">
             <Entry x:Name="InputEntry" Placeholder="請輸入訊息..." HorizontalOptions="FillAndExpand"/>

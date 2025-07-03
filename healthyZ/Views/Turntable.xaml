@@ -32,20 +32,22 @@
      VerticalOptions="End"
      Margin="0,0,0,20">
             <HorizontalStackLayout>
-                <Editor x:Name="FoodEditor"
-            Placeholder="每行輸入一種食物"
-            WidthRequest="135"
-            BackgroundColor="White"
-            AutoSize="TextChanges"
-            HeightRequest="150"
-            Margin="0,20,0,0"
-            HorizontalOptions="Center"/>
-                <VerticalStackLayout Spacing="10" Margin="20,0,0,30" VerticalOptions="Center">
+                <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12" Margin="0,30,0,0">
+                    <Editor x:Name="FoodEditor"
+        Placeholder="每行輸入一種食物"
+        WidthRequest="200"
+        BackgroundColor="White"
+        AutoSize="TextChanges"
+        HeightRequest="250"
+        HorizontalOptions="Center"/>
+                </Border>
+                <VerticalStackLayout Spacing="10" Margin="20,0,0,110" VerticalOptions="Center">
                     <Button Text="新增"
                 Clicked="OnAddClicked"
                 BackgroundColor="#9AC7BF"
                 TextColor="#48786F"
-                WidthRequest="70"/>
+                WidthRequest="70"
+                Margin="0,0,0,10"/>
                     <Button Text="重置"
                 Clicked="OnResetClicked"
                 BackgroundColor="#F27272"

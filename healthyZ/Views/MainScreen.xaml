@@ -17,12 +17,12 @@
               Margin="0,30,0,0"
               HorizontalOptions="Center"
               VerticalOptions="Center"
-              RowSpacing="20"
-              ColumnSpacing="20">
+              RowSpacing="35"
+              ColumnSpacing="35">
 
             <!-- 第一列 -->
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
-                <Button WidthRequest="100" HeightRequest="100"
+                <Button WidthRequest="125" HeightRequest="125"
                         Clicked="PhotoanalysisClicked"
                         BackgroundColor="#FADADD"
                         ImageSource="photograph.png"/>
@@ -30,7 +30,7 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
-                <Button WidthRequest="100" HeightRequest="100"
+                <Button WidthRequest="125" HeightRequest="125"
                         Clicked="DietRecordClicked"
                         BackgroundColor="#E6DAF7"
                         ImageSource="dietrecord.png"/>
@@ -39,7 +39,7 @@
 
             <!-- 第二列 -->
             <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
-                <Button WidthRequest="100" HeightRequest="100"
+                <Button WidthRequest="125" HeightRequest="125"
                         Clicked="MealInquiryClicked"
                         BackgroundColor="#FFD1A4"
                         ImageSource="meal.png"/>
@@ -47,7 +47,7 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
-                <Button WidthRequest="100" HeightRequest="100"
+                <Button WidthRequest="125" HeightRequest="125"
                         Clicked="TurntableClicked"
                         BackgroundColor="#FFF2CC"
                         ImageSource="turntable.png"/>
@@ -56,15 +56,15 @@
 
             <!-- 第三列 -->
             <VerticalStackLayout Grid.Row="2" Grid.Column="0" Spacing="5" HorizontalOptions="Center">
-                <Button WidthRequest="100" HeightRequest="100"
+                <Button WidthRequest="125" HeightRequest="125"
                         Clicked="mineClicked"
                         BackgroundColor="#FAF9F6"
                         ImageSource="myprofile.png"/>
-                <Label Text="我的" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
+                <Label Text="個人資料" FontSize="14" HorizontalOptions="Center" TextColor="#48786F"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="2" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
-                <Button WidthRequest="100" HeightRequest="100"
+                <Button WidthRequest="125" HeightRequest="125"
                         Clicked="AIAssistantClicked"
                         BackgroundColor="#D0E6FA"
                         ImageSource="assistant.png"/>
