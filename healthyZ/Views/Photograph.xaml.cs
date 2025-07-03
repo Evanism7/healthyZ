@@ -1,4 +1,8 @@
 using healthyZ.AI;
+using healthyZ.Models;
+using healthyZ.Views;
+using Newtonsoft.Json;
+using System.Text.Json;
 namespace healthy.Views;
 
 public partial class Photograph : ContentPage
@@ -70,11 +74,10 @@ public partial class Photograph : ContentPage
             // 1. 先呼叫 AnalyzeImageAsync 拿到 result 字串
             AnalyzeImage _analyzeImage = new AnalyzeImage();
             var result = await _analyzeImage.AnalyzeImageAsync(currentPhotoPath, "local");
+            NutritionResult jsonResult = JsonConvert.DeserializeObject<NutritionResult>(result);
 
             // 2. 帶著 result 跳到 NutritionAI 頁面
-            //    注意：要 Escape，避免特殊字元破壞 URI
-            string route = $"NutritionAI?analysisResult={Uri.EscapeDataString(result)}";
-            await Shell.Current.GoToAsync(route);
+            await Navigation.PushAsync(new NutritionAI(jsonResult));
         }
         catch (Exception ex)
         {
