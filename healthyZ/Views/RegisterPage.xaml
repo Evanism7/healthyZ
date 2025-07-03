@@ -3,30 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="healthy.RegisterPage"
-             Title="註冊" BackgroundColor="#D5E8D4">
+             Title="註冊" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
             <Label Text="使用者名稱" TextColor="Black" />
-            <Entry x:Name="usernameEntry" Placeholder="輸入名稱" TextColor="Black" />
+            <Entry x:Name="usernameEntry" Placeholder="輸入名稱" TextColor="#48786F" BackgroundColor="#80FFFFFF" />
 
             <Label Text="帳號" TextColor="Black" />
-            <Entry x:Name="accountEntry" Placeholder="輸入帳號" TextColor="Black" />
+            <Entry x:Name="accountEntry" Placeholder="輸入帳號" TextColor="#48786F" BackgroundColor="#80FFFFFF" />
 
             <Label Text="密碼" TextColor="Black" />
-            <Entry x:Name="passwordEntry" IsPassword="True" Placeholder="輸入密碼" TextColor="Black" />
+            <Entry x:Name="passwordEntry" IsPassword="True" Placeholder="輸入密碼" TextColor="#48786F" BackgroundColor="#80FFFFFF" />
 
             <Label Text="生日" TextColor="Black" />
-            <DatePicker x:Name="birthdayPicker" MaximumDate="{x:Static sys:DateTime.Today}"  TextColor="Black"/>
+            <DatePicker x:Name="birthdayPicker" MaximumDate="{x:Static sys:DateTime.Today}"  TextColor="#48786F" BackgroundColor="#80FFFFFF"/>
 
             <Label Text="身高（cm）" TextColor="Black" />
-            <Entry x:Name="heightEntry" Keyboard="Numeric" Placeholder="例如：170" TextColor="Black" />
+            <Entry x:Name="heightEntry" Keyboard="Numeric" Placeholder="例如：170" TextColor="#48786F" BackgroundColor="#80FFFFFF" />
 
             <Label Text="體重（kg）" TextColor="Black" />
-            <Entry x:Name="weightEntry" Keyboard="Numeric" Placeholder="例如：65" TextColor="Black" />
+            <Entry x:Name="weightEntry" Keyboard="Numeric" Placeholder="例如：65" TextColor="#48786F" BackgroundColor="#80FFFFFF" />
 
-            <Button Text="註冊" Clicked="OnRegisterClicked" />
+            
+            
+            <Button Text="註冊" Clicked="OnRegisterClicked" TextColor="#48786F" BackgroundColor="#9AC7BF" BorderColor="#67AB9F" BorderWidth="1" />
             <Label x:Name="messageLabel" TextColor="Red" />
+           
 
         </VerticalStackLayout>
     </ScrollView>

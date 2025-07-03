@@ -4,7 +4,6 @@
              
              x:Class="healthyZ.Views.RestaurantPage"
              Title="餐廳查詢" BackgroundColor="#E3F3EC">
-
     <StackLayout>
 
         <!-- 🌀 正在查詢提示 -->
@@ -35,5 +34,4 @@
         </CollectionView>
 
     </StackLayout>
-
 </ContentPage>

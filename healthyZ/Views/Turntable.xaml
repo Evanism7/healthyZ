@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.Turntable"
              Title="轉盤"
+             Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
     <VerticalStackLayout>
         <!-- 轉盤區域（建議放最上方） -->
@@ -25,34 +26,33 @@
                 </GraphicsView.GestureRecognizers>
             </GraphicsView>
         </Frame>
-        <!-- 可滾動多行輸入區 -->
+        <!-- 可滾動多行輸入區與按鈕 -->
         <ScrollView Orientation="Horizontal"
-         HorizontalOptions="Center"
-         VerticalOptions="End"
-         Margin="0,0,0,20">
+     HorizontalOptions="Center"
+     VerticalOptions="End"
+     Margin="0,0,0,20">
             <HorizontalStackLayout>
                 <Editor x:Name="FoodEditor"
-            Placeholder="每行輸入一種想吃的東西"
-            WidthRequest="200"
+            Placeholder="每行輸入一種食物"
+            WidthRequest="135"
             BackgroundColor="White"
             AutoSize="TextChanges"
-            HeightRequest="60"
+            HeightRequest="150"
             Margin="0,20,0,0"
             HorizontalOptions="Center"/>
+                <VerticalStackLayout Spacing="10" Margin="20,0,0,30" VerticalOptions="Center">
+                    <Button Text="新增"
+                Clicked="OnAddClicked"
+                BackgroundColor="#9AC7BF"
+                TextColor="#48786F"
+                WidthRequest="70"/>
+                    <Button Text="重置"
+                Clicked="OnResetClicked"
+                BackgroundColor="#F27272"
+                TextColor="#48786F"
+                WidthRequest="70"/>
+                </VerticalStackLayout>
             </HorizontalStackLayout>
         </ScrollView>
-        <!-- 新增與重置按鈕並排 -->
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" Margin="0,10,0,0">
-            <Button Text="重置"
-            Clicked="OnResetClicked"
-            BackgroundColor="#F27272"
-            TextColor="#48786F"
-            WidthRequest="100"/>
-            <Button Text="新增"
-            Clicked="OnAddClicked"
-            BackgroundColor="#9AC7BF"
-            TextColor="#48786F"
-            WidthRequest="100"/>
-        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -18,5 +18,17 @@
             Routing.RegisterRoute(nameof(healthyZ.Views.RestaurantPage), typeof(healthyZ.Views.RestaurantPage));
 
         }
+
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            bool result = await DisplayAlert("確認", "確定要登出嗎？", "是", "否");
+            if (result)
+            {
+                // 清除偏好設定中記錄的使用者資訊
+                Preferences.Clear();
+                // 重新導向到登入頁面
+                await Shell.Current.GoToAsync("//login");
+            }
+        }
     }
 }

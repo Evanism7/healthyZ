@@ -3,17 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.Myprofile"
              Title="我的"
+             Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
-    <Grid RowDefinitions="*,*,*,*,*,*,*"
-      ColumnDefinitions="*"
-      Padding="0"
-      BackgroundColor="#80FFFFFF">
-        <Label Text="姓名：時建康" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="0" Grid.Column="0"/>
-        <Label Text="生日：74年02月21日" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="1" Grid.Column="0"/>
-        <Label Text="年齡：40歲" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="2" Grid.Column="0"/>
-        <Label Text="暱稱：小康" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="3" Grid.Column="0"/>
-        <Label Text="身高：180公分" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="4" Grid.Column="0"/>
-        <Label Text="體重：70公斤" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="5" Grid.Column="0"/>
-        <Label Text="BMI：21.6" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" Grid.Row="6" Grid.Column="0"/>
-    </Grid>
+    <VerticalStackLayout Spacing="28" Padding="9,30,0,0" HorizontalOptions="Start">
+        <HorizontalStackLayout>
+            <Label Text="使用者名稱：" TextColor="Black"/>
+            <Label x:Name="usernameLabel" TextColor="Black"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="帳號：" TextColor="Black"/>
+            <Label x:Name="accountLabel" TextColor="Black"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="生日：" TextColor="Black"/>
+            <Label x:Name="birthdayLabel" TextColor="Black"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="年齡：" TextColor="Black"/>
+            <Label x:Name="ageLabel" TextColor="Black"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="身高（cm）：" TextColor="Black"/>
+            <Entry x:Name="heightEntry" WidthRequest="80" Keyboard="Numeric" TextColor="Black"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="體重（kg）：" TextColor="Black"/>
+            <Entry x:Name="weightEntry" WidthRequest="80" Keyboard="Numeric" TextColor="Black"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="BMI：" TextColor="Black" />
+            <Label x:Name="bmiLabel"/>
+        </HorizontalStackLayout>
+        <Button Text="儲存" Clicked="OnSaveClicked" BackgroundColor="#67AB9F" TextColor="White" WidthRequest="100"/>
+    </VerticalStackLayout>
 </ContentPage>
