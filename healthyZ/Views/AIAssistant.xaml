@@ -22,7 +22,7 @@
                 <Button x:Name="Prompt4Button" Text="減重的人該怎麼吃才不會復胖？" Clicked="Prompt4_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12" />  
             </StackLayout>  
         </ScrollView>  
-
+      
         <!-- 聊天框 -->  
         <ScrollView Grid.Row="2" x:Name="ChatScroll">  
             <StackLayout x:Name="ChatStack" Spacing="10" />  
@@ -38,4 +38,5 @@
             <Button x:Name="SendButton" Text="➤" Clicked="SendButton_Clicked" BackgroundColor="#A5D6A7" TextColor="White" Grid.Column="1"/>  
         </Grid>  
     </Grid>  
+
 </ContentPage>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="healthyZ.Views.NutritionAI"
+             Title="AI 分析結果" BackgroundColor="#D5E8D4">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- 卡路里 -->
+            <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+                <Label Text="卡路里：" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
+                <Label x:Name="lblCalories" FontSize="16" VerticalOptions="Center" TextColor="Black"/>
+            </HorizontalStackLayout>
+            <!-- 標題 -->
+            <Label Text="三大營養成分比例" FontSize="18" HorizontalOptions="Center" TextColor="Black" />
+            <Grid ColumnDefinitions="*,Auto">
+                <!-- 其他營養素 -->
+                <VerticalStackLayout Grid.Column="0" Padding="20">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="名稱：" FontSize="16" TextColor="Black"/>
+                        <Label x:Name="lblFoodName" Text="0" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="重量：" TextColor="Black" />
+                        <Label x:Name="lblWeight" Text="0" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="脂肪：" TextColor="Black" />
+                        <Label x:Name="lblFat" Text="0" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="蛋白質：" TextColor="Black" />
+                        <Label x:Name="lblProtein" Text="0" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="碳水化合物：" TextColor="Black" />
+                        <Label x:Name="lblCarbohydrate" Text="0" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Grid>
+            <!-- 操作按鈕 -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
+                <Button Text="清除" Clicked="OnDeleteClicked" BackgroundColor="#F44336" TextColor="White" WidthRequest="100"/>
+                <Button Text="確認" Clicked="OnConfirmClicked" BackgroundColor="#4CAF50" TextColor="White" WidthRequest="100"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
