@@ -5,6 +5,7 @@
              Title="拍照分析" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
+
             <VerticalStackLayout>
                 <Border
                 Stroke="#67AB9F"
@@ -41,6 +42,7 @@
                  CornerRadius="25"
                  VerticalOptions="End"
                  BackgroundColor="Transparent"/>
+
             </HorizontalStackLayout>
         </StackLayout>
     </ScrollView>
