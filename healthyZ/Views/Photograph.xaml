@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.Photograph"
-             Title="拍照分析" BackgroundColor="#D5E8D4">
+             Title="拍照分析" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
+
             <VerticalStackLayout>
                 <Border
                 Stroke="#67AB9F"
@@ -13,30 +14,35 @@
                 HorizontalOptions="Center"
                 VerticalOptions="Center">
                     <Image x:Name="photoImage"
-                     WidthRequest="300"
+                     WidthRequest="270"
                      HeightRequest="300"
                      Aspect="AspectFill" />
                 </Border>
                 <!-- 其他控制項 -->
             </VerticalStackLayout>
-            <HorizontalStackLayout Margin="0,20,0,0" HorizontalOptions="Center" Spacing="15">
-                <ImageButton Source="myfiles.png"   
-             Clicked="OnPickPhotoClicked"
-             WidthRequest="60"
-             HeightRequest="35"
-             VerticalOptions="End"/>
-                <ImageButton Source="takephoto.png"
-             Clicked="OnTakePhotoClicked"
-             CornerRadius="50"
-             WidthRequest="100"
-             HeightRequest="100"
-             VerticalOptions="End"/>
+            <HorizontalStackLayout Margin="0,20,0,0" HorizontalOptions="Center" Spacing="35">
+                <ImageButton Source="image.png"   
+                 Clicked="OnPickPhotoClicked"
+                 WidthRequest="50"
+                 HeightRequest="20"
+                 CornerRadius="10"
+                 VerticalOptions="End"
+                 BackgroundColor="Transparent"/>
+                <ImageButton Source="camera.png"
+                 Clicked="OnTakePhotoClicked"
+                 CornerRadius="40"
+                 WidthRequest="80"
+                 HeightRequest="80"
+                 VerticalOptions="End"
+                 BackgroundColor="Transparent"/>
                 <ImageButton Source="send.png"
-             Clicked="OnNextstepClicked"
-             WidthRequest="60"
-             HeightRequest="35"
-             VerticalOptions="End"/>
-            
+                 Clicked="OnNextstepClicked"
+                 WidthRequest="10"
+                 HeightRequest="10"
+                 CornerRadius="25"
+                 VerticalOptions="End"
+                 BackgroundColor="Transparent"/>
+
             </HorizontalStackLayout>
         </StackLayout>
     </ScrollView>

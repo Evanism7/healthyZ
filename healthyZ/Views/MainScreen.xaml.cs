@@ -1,13 +1,21 @@
 namespace healthy.Views;
+using healthyZ.Models;
 
 public partial class MainScreen : ContentPage
 {
-	public MainScreen()
-	{
-		InitializeComponent();
-	}
+    public MainScreen()
+    {
+        InitializeComponent();
+    }
 
-	//拍照分析
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        var username = Preferences.Get("username", "使用者");
+        usernameLabel.Text = $"歡迎，{username}";
+    }
+
+    //拍照分析
     private void PhotoanalysisClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("Photograph");
@@ -22,7 +30,7 @@ public partial class MainScreen : ContentPage
     //地圖
     private void MealInquiryClicked(object sender, EventArgs e)
     {
-
+        Shell.Current.GoToAsync("RestaurantPage");
     }
 
     //轉盤

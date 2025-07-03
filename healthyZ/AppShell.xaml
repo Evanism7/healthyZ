@@ -5,12 +5,51 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:healthyZ"
     xmlns:views="clr-namespace:healthy.Views"
-    Title="食在健康">
+    Title="食在健康"
+    Shell.TitleColor="#5A7C78"
+    BackgroundColor="#D5E8D4">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="MainPage" 
-        Shell.BackgroundColor="#D5E8D4"/>
+    Title="主畫面"
+    Shell.FlyoutBehavior="Disabled"
+    ContentTemplate="{DataTemplate views:LoginPage}"
+    Route="login"
+    Shell.BackgroundColor="#D5E8D4"
+    />
+
+    <!-- 主選單 -->
+    <FlyoutItem Title="拍照分析" Icon="iconphotograph.png" Route="Photograph">
+        <ShellContent ContentTemplate="{DataTemplate views:Photograph}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="飲食紀錄" Icon="icondietrecord.png" Route="Diet_record">
+        <ShellContent ContentTemplate="{DataTemplate views:Diet_record}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="餐廳查詢" Icon="iconmeal.png" Route="photoAI">
+        <ShellContent ContentTemplate="{DataTemplate views:Turntable}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="轉盤" Icon="iconturntable.png" Route="Turntable">
+        <ShellContent ContentTemplate="{DataTemplate views:Turntable}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="個人檔案" Icon="iconmyprofile.png" Route="Myprofile">
+        <ShellContent ContentTemplate="{DataTemplate views:Myprofile}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="AI助理" Icon="iconassistant.png" Route="AIAssistant">
+        <ShellContent ContentTemplate="{DataTemplate views:AIAssistant}" />
+    </FlyoutItem>
+
+    <!-- 主選單頁尾 -->
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="20">
+            <Button Text="登出" 
+            BackgroundColor="#F27272"
+            TextColor="White"
+            Clicked="OnLogoutClicked"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
 
 </Shell>

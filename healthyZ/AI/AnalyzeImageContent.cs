@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Text;
+using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace healthy.AI
 {
@@ -9,7 +10,7 @@ namespace healthy.AI
     {
         // 登入Google Cloud取得 API Key與API URL
         private const string ApiKey = "AIzaSyA9L0VOmECt9O8sbR9xRzc1_v-rl-ioQgk";
-        private const string ApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+        
 
         private readonly HttpClient _httpClient = new();
 
@@ -21,21 +22,27 @@ namespace healthy.AI
         {
             _client = new HttpClient();
         }
-        public async Task<string> GetAIReplyAsync(string userMessage)
+       
+
+        public async Task<string> MapAI(string userMessage)
         {
-            var requestBody = new
+        const string ApiUrl2 = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+        var requestBody = new
             {
-                contents = new[]
+            contents = new[]
                 {
-                new
-                {
-                    parts = new[]
+                    new
                     {
-                        new { text = userMessage }
+                        parts = new object[]
+                        {
+                            new{ text = userMessage },
+                            //1. 分析照片的提示詞, 必須仔細修正, Gemini才能回傳符合需要的結果
+                            //new { text = "我現在位置是({latitude},{longitude})，提供距離2公里內評分最高五家健康餐廳\r\n只以下格式回傳資料, 我要在程式中讀取\r\n{ Name = \"茶米風健康餐盒東橋店（身心靈都健康）\", Address = \"台南市永康區東橋一路272號\", Latitude = {latitude}, Longitude = {longitude} }" },
+                        }
+
                     }
                 }
-            }
-            };
+        };
 
             //送至Gemini API的呼叫內容要轉換成Json格式, 再包裝為送出的Http需求內容
             var json = JsonSerializer.Serialize(requestBody);
@@ -43,7 +50,7 @@ namespace healthy.AI
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             //將包裝好的Http需求內容透過HttpClient的PostAsync方法送到Gemini API執行, 並取得回應
-            var response = await _client.PostAsync($"{ApiUrl}?key={ApiKey}", content);
+            var response = await _client.PostAsync($"{ApiUrl2}?key={ApiKey}", content);
             response.EnsureSuccessStatusCode();
 
             //取得回應內容, 並轉換成Json格式
@@ -57,6 +64,6 @@ namespace healthy.AI
                             .GetProperty("text")
                             .GetString();
         }
-        
+
     }
 }

@@ -16,6 +16,19 @@
             Routing.RegisterRoute(nameof(healthy.Views.AIAssistant), typeof(healthy.Views.AIAssistant));
             Routing.RegisterRoute(nameof(healthy.RegisterPage), typeof(healthy.RegisterPage));
             Routing.RegisterRoute(nameof(healthyZ.Views.NutritionAI), typeof(healthyZ.Views.NutritionAI));
+            Routing.RegisterRoute(nameof(healthyZ.Views.RestaurantPage), typeof(healthyZ.Views.RestaurantPage));
+
+        }
+
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            bool answer = await this.DisplayAlert("登出確認", "您確定要登出嗎？", "是", "否");
+            if (answer)
+            {
+                // 回到登入頁面，並清除導覽堆疊
+                await Shell.Current.GoToAsync("//login");
+            }
+            // 否則什麼都不做，停留在原畫面
         }
     }
 }
