@@ -1,11 +1,11 @@
 using healthy.AI;
-namespace healthy.Views;
+namespace healthyZ.Views;
 
 public partial class AIAssistant : ContentPage
 {
 	public AIAssistant()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
 
 	//´£¥Ü«ö¶s1

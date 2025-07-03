@@ -1,4 +1,4 @@
-namespace healthy.Views;
+namespace healthyZ.Views;
 
 public partial class Photograph : ContentPage
 {
@@ -6,7 +6,7 @@ public partial class Photograph : ContentPage
     public Photograph()
 	{
 
-		InitializeComponent();
+        InitializeComponent();
 	}
 
     //¬ÛÃ¯«ö¶s

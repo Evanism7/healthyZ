@@ -1,10 +1,10 @@
-namespace healthy.Views;
+namespace healthyZ.Views;
 
 public partial class Diet_record : ContentPage
 {
 	public Diet_record()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
 
     // 點按單筆記事時將該筆傳送編輯頁面並開啟點按單筆記事時將該筆傳送編輯頁面並開啟
