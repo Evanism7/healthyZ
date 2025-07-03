@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
              x:Class="healthyZ.Views.RestaurantPage"
              Title="餐廳查詢" BackgroundColor="#E3F3EC">
 
-    <CollectionView x:Name="RestaurantListView" SelectionMode="None">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Frame Margin="5" Padding="10" BackgroundColor="#80FFFFFF">
-                    <StackLayout>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnRestaurantTapped" />
-                        </StackLayout.GestureRecognizers>
-                        <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
-                        <Label Text="{Binding Address}" FontSize="14"/>
-                    </StackLayout>
-                </Frame>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <StackLayout>
+
+        <!-- 🌀 正在查詢提示 -->
+        <Label x:Name="LoadingLabel"
+               Text="正在查詢中..."
+               FontSize="16"
+               TextColor="Gray"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="20"
+               IsVisible="False" />
+
+        <!-- ✅ 餐廳清單 -->
+        <CollectionView x:Name="RestaurantListView" SelectionMode="None" IsVisible="True">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="5" Padding="10" BackgroundColor="#80FFFFFF">
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRestaurantTapped" />
+                            </StackLayout.GestureRecognizers>
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding Address}" FontSize="14"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </StackLayout>
 
 </ContentPage>

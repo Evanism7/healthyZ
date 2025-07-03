@@ -88,10 +88,8 @@ public partial class AIAssistant : ContentPage
         
 
         var gemini = new AnalyzeImageContent();
-        string reply = await gemini.GetAIReplyAsync(userMessage);
         ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1); // ²¾°£"«ä¦Ò¤¤"
 
-        AddAIMessage(reply);
     }
 
 
