@@ -15,7 +15,7 @@
             Routing.RegisterRoute(nameof(healthy.Views.Myprofile), typeof(healthy.Views.Myprofile));
             Routing.RegisterRoute(nameof(healthy.Views.AIAssistant), typeof(healthy.Views.AIAssistant));
             Routing.RegisterRoute(nameof(healthy.RegisterPage), typeof(healthy.RegisterPage));
-
+            Routing.RegisterRoute(nameof(healthyZ.Views.NutritionAI), typeof(healthyZ.Views.NutritionAI));
         }
     }
 }

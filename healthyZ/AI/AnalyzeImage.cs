@@ -1,40 +1,63 @@
-﻿using System.Net.Http.Headers;
-using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace healthy.AI
+namespace healthyZ.AI
 {
-
-    internal class AnalyzeImageContent
+    internal class AnalyzeImage
     {
         // 登入Google Cloud取得 API Key與API URL
-        private const string ApiKey = "AIzaSyA9L0VOmECt9O8sbR9xRzc1_v-rl-ioQgk";
+        private const string ApiKey = "AIzaSyBKDRstpZpbKct61EjYK8_NOG517UbDdl8";
         private const string ApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
-
-        private readonly HttpClient _httpClient = new();
 
         // 是透過Http呼叫Gemini API, 需要HttpClient執行呼叫任務
         private readonly HttpClient _client;
 
         // 建構子
-        public AnalyzeImageContent()
+        public AnalyzeImage()
         {
             _client = new HttpClient();
         }
-        public async Task<string> GetAIReplyAsync(string userMessage)
+
+        //上傳圖片至Gemini分析內容
+        public async Task<string> AnalyzeImageAsync(string text, string location)
         {
+            byte[] imageBytes = null;
+            string base64Image = "";
+
+            // 讀取圖片檔案內容存在變數imageBytes
+            imageBytes = File.ReadAllBytes(text);
+            base64Image = Convert.ToBase64String(imageBytes);
+
+            // 設定要送至Gemini API的呼叫內容(Http Request Body)
             var requestBody = new
             {
                 contents = new[]
                 {
-                new
-                {
-                    parts = new[]
+                    new
                     {
-                        new { text = userMessage }
+                        parts = new object[]
+                        {   
+                            //1. 分析照片的提示詞, 必須仔細修正, Gemini才能回傳符合需要的結果
+                            new { text = "分析這張圖片內容,60個字內,只要這張圖片內食物的卡路里,以及他的碳水化合物、脂肪、蛋白質的%,不要有像*之類的符號" },
+
+                            //2.要上傳的照片
+                            new
+                            {
+                                inline_data = new
+                                {
+                                    mime_type = "image/jpeg",
+                                    data = base64Image  //上面的圖片內容變數
+                                }
+                            }
+                        }
+
                     }
                 }
-            }
             };
 
             //送至Gemini API的呼叫內容要轉換成Json格式, 再包裝為送出的Http需求內容
@@ -57,6 +80,6 @@ namespace healthy.AI
                             .GetProperty("text")
                             .GetString();
         }
-        
+
     }
 }

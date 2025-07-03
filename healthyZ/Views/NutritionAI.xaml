@@ -3,25 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthyZ.Views.NutritionAI"
              Title="AI 分析結果" BackgroundColor="#D5E8D4">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20" BackgroundColor="#E3F3EB">
-
+    
+        <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <Label Text="分析結果：" FontAttributes="Bold" />
             <!-- 食物圖示與卡路里 -->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                <Image Source="burger.png" WidthRequest="100" HeightRequest="100" />
+                <Image Source="burger.png" WidthRequest="250" HeightRequest="250" />
                 <VerticalStackLayout>
                     <Label Text="卡路里" FontSize="16" />
-                    <Label x:Name="lblCalories" Text="250 Kcal" FontSize="24" FontAttributes="Bold" />
+                    <Label Text="{Binding Calories}" FontSize="16" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
 
-            <!-- 圓餅圖 -->
+            <!-- 標題 -->
             <Label Text="三大營養成分比例" FontSize="18" HorizontalOptions="Center" />
 
-            <!-- 成分百分比 -->
-            <Label x:Name="lblCarbs" Text="碳水化合物：59.6%" FontSize="16" TextColor="Orange" />
-            <Label x:Name="lblFat" Text="脂肪：17.3%" FontSize="16" TextColor="Red" />
-            <Label x:Name="lblProtein" Text="蛋白質：23.1%" FontSize="16" TextColor="Green" />
+            <Label Text="{Binding OtherNutritionInfo}" 
+                   LineBreakMode="WordWrap"
+                   FontSize="18"
+                   Padding="10"/>
 
             <!-- 操作按鈕 -->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
