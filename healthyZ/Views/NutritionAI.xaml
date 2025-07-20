@@ -11,7 +11,13 @@
                 <Label x:Name="lblCalories" FontSize="16" VerticalOptions="Center" TextColor="Black"/>
             </HorizontalStackLayout>
             <!-- 標題 -->
-            <Label Text="三大營養成分比例" FontSize="18" HorizontalOptions="Center" TextColor="Black" />
+            <HorizontalStackLayout>
+                <Label Text="三大營養成分比例" FontSize="18" HorizontalOptions="StartAndExpand" TextColor="Black" />
+            <Label x:Name="lblDate"
+                   FontSize="16"
+                   HorizontalOptions="End"
+                   TextColor="Gray" />
+            </HorizontalStackLayout>
             <Grid ColumnDefinitions="*,Auto">
                 <!-- 其他營養素 -->
                 <VerticalStackLayout Grid.Column="0" Padding="20">
