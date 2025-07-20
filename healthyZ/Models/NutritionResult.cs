@@ -23,15 +23,15 @@ namespace healthyZ.Models
         [Column("food_name")]
         public string food_name { get; set; }
         [Column("Weight")]
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
         [Column("carbohydrates")]
-        public int carbohydrates { get; set; }
+        public int? carbohydrates { get; set; }
         [Column("fat")]
-        public int fat { get; set; }
+        public int? fat { get; set; }
         [Column("protein")]
-        public int protein { get; set; }
+        public int? protein { get; set; }
         [Column("calories")]
-        public int calories { get; set; }
+        public int? calories { get; set; }
         [Column("day")]
         public string day { get; set; }
 
