@@ -32,6 +32,8 @@ namespace healthyZ.Models
         public int protein { get; set; }
         [Column("calories")]
         public int calories { get; set; }
+        [Column("day")]
+        public string day { get; set; }
 
     }
 }

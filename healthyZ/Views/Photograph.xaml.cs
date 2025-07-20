@@ -61,13 +61,16 @@ public partial class Photograph : ContentPage
     //下一步按鈕
     private async void OnNextstepClicked(object sender, EventArgs e)
     {
+        
+
+        
         //檢查是否有選取照片
         if (string.IsNullOrEmpty(currentPhotoPath))
         {
             await DisplayAlert("錯誤", "請先選取照片.", "OK");
             return;
         }
-        
+        LoadingLabel.IsVisible = true;
         //呼叫分析照片內容的程式
         try
         {
@@ -75,7 +78,7 @@ public partial class Photograph : ContentPage
             AnalyzeImage _analyzeImage = new AnalyzeImage();
             var result = await _analyzeImage.AnalyzeImageAsync(currentPhotoPath, "local");
             NutritionResult jsonResult = JsonConvert.DeserializeObject<NutritionResult>(result);
-
+            LoadingLabel.IsVisible = false;
             // 2. 帶著 result 跳到 NutritionAI 頁面
             await Navigation.PushAsync(new NutritionAI(jsonResult));
         }
