@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
+    
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthy.Views.Diet_record"
+
              Title="飲食紀錄" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
     <StackLayout Padding="10">
+        <VerticalStackLayout Padding="10">
+            <Label Text="選擇期間" FontAttributes="Bold" TextColor="Black" />
 
-        <ListView x:Name="notesListView"
+            <HorizontalStackLayout Spacing="10">
+                <DatePicker x:Name="StartDatePicker" TextColor="Black" />
+                <DatePicker x:Name="EndDatePicker" TextColor="Black"  />
+                <Button Text="分析" Clicked="OnAnalyzeClicked" />
+            </HorizontalStackLayout>
+
+            <!-- 圓餅圖 -->
+
+            <microcharts:ChartView x:Name="NutritionChart"
+                            HeightRequest="200"
+                            Margin="0,20,0,20"
+                            BackgroundColor="#D5E8D4"/>
+            </VerticalStackLayout>
+
+            <ListView x:Name="notesListView"
                   ItemTapped="OnItemTapped"
                   HasUnevenRows="True"
                   Margin="0,10,0,10">
@@ -25,12 +44,20 @@
                                 <Label Text="{Binding fat, StringFormat='脂肪: {0} g'}" FontSize="14" />
                                 <Label Text="{Binding Weight, StringFormat='重量: {0} g'}" FontSize="14" />
                             </StackLayout>
-                            <Label Grid.Column="1"
+                            <StackLayout Grid.Column="0">
+                                <Label Grid.Column="1"
                                    Text="{Binding day, StringFormat='日期: {0}'}"
                                    FontSize="12"
                                    TextColor="Black"
                                    VerticalOptions="Start"
                                    HorizontalOptions="End"/>
+                            <Label Grid.Column="1"
+                                   Text="{Binding time, StringFormat='時間: {0:hh\\:mm}'}"
+                                   FontSize="12"
+                                   TextColor="Black"
+                                   VerticalOptions="Start"
+                                   HorizontalOptions="End"/>
+                            </StackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
