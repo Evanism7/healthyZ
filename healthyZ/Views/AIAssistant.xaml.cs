@@ -1,6 +1,7 @@
 using healthy.AI;
 using healthyZ.Models;
 using Microsoft.Maui.Controls.Shapes;
+
 using Supabase.Gotrue;
 namespace healthy.Views;
 
@@ -39,6 +40,7 @@ public partial class AIAssistant : ContentPage
     {
         string prompt = basePrompt;
 
+        // 加入使用者基本資料（身高體重）
         if (basePrompt.Contains("減重") || basePrompt.Contains("體重") || basePrompt.Contains("身高") || basePrompt.Contains("BMI"))
         {
             var profile = await GetUserProfileFromDatabase();
@@ -52,8 +54,50 @@ public partial class AIAssistant : ContentPage
                 prompt += "（無法從資料庫取得身高與體重資訊，請手動提供。）";
             }
         }
-        return $"{basePrompt} 請用純文字回答，不要使用星號、項目符號或特殊符號。";
+
+        // 加入最近飲食資料摘要
+        var foodSummary = await GetRecentFoodSummary();
+        if (!string.IsNullOrEmpty(foodSummary))
+        {
+            prompt += $" 這是我最近的飲食紀錄：{foodSummary}。";
+        }
+
+        return $"{prompt} 請用純文字回答，不要使用星號、項目符號或特殊符號。";
     }
+    //從 food_record 抓資料
+    private async Task<string> GetRecentFoodSummary()
+    {
+        var accountId = Preferences.Get("account_id", null);
+        if (string.IsNullOrEmpty(accountId))
+            return "無法取得使用者資訊。";
+
+        var result = await _client
+            .From<NutritionResult>()
+            .Where(x => x.account_id == accountId)
+            .Order(x => x.Id, Supabase.Postgrest.Constants.Ordering.Descending)
+            .Limit(5)
+            .Get();
+
+        if (result.Models.Count == 0)
+            return "尚無最近飲食紀錄。";
+
+        // 計算最近飲食的平均值
+        var avgCalories = result.Models.Average(x => x.calories);
+        var avgProtein = result.Models.Average(x => x.protein);
+        var avgCarbs = result.Models.Average(x => x.carbohydrates);
+        var avgFat = result.Models.Average(x => x.fat);
+
+        // 組合紀錄摘要
+        var foodSummaries = result.Models.Select(x =>
+            $"{x.day} 吃了 {x.food_name}，熱量{x.calories}kcal，蛋白質{x.protein}g，碳水{x.carbohydrates}g，脂肪{x.fat}g");
+
+        var summaryText = string.Join("；", foodSummaries);
+
+        // 建立更具分析性的摘要，加入平均值
+        return $"這是我最近的飲食紀錄：{summaryText}。綜合來看，我過去幾天的平均攝取量為：熱量約 {avgCalories:F0} 大卡，蛋白質約 {avgProtein:F0} 公克，碳水化合物約 {avgCarbs:F0} 公克，脂肪約 {avgFat:F0} 公克。";
+    }
+    
+
 
     //按鈕設定
     private void Button(bool enabled)
@@ -85,7 +129,7 @@ public partial class AIAssistant : ContentPage
     //提示按鈕3
     private void Prompt3_Clicked(object sender, EventArgs e)
     {
-        var msg = "我該怎麼調整飲食？";
+        var msg = "請根據我最近的飲食紀錄製作一張飲食清單";
         AddUserMessage(msg);
         Button(false);
         _ = SimulateAIResponse(msg);

@@ -39,7 +39,8 @@
         BackgroundColor="White"
         AutoSize="TextChanges"
         HeightRequest="250"
-        HorizontalOptions="Center"/>
+        HorizontalOptions="Center"
+        TextColor="Black"/>
                 </Border>
                 <VerticalStackLayout Spacing="10" Margin="20,0,0,110" VerticalOptions="Center">
                     <Button Text="新增"

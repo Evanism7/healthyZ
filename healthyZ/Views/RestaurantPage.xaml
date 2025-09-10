@@ -20,7 +20,7 @@
         <CollectionView x:Name="RestaurantListView" SelectionMode="None" IsVisible="True">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="5" Padding="10" BackgroundColor="#80FFFFFF">
+                    <Frame Margin="5" Padding="10" BackgroundColor="Aquamarine">
                         <StackLayout>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnRestaurantTapped" />

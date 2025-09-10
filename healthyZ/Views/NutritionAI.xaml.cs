@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using Supabase.Gotrue;
 using System.Text.Json; // 請確認有 using
 using System.Text.RegularExpressions;
+using Microcharts;
+using SkiaSharp;
 namespace healthyZ.Views;
 
 [QueryProperty(nameof(NutritionResult), "analysisResult")]
@@ -38,6 +40,35 @@ public partial class NutritionAI : ContentPage
         lblWeight.Text = aiResult.Weight != null ? aiResult.Weight.ToString() : "無";
         lblFoodName.Text = aiResult.food_name ?? "未知";
         lblDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
+        aiResult.time = DateTime.Now.TimeOfDay;
+
+        NutritionChart.Chart = new PieChart
+        {
+            Entries = new List<ChartEntry>
+
+           {
+                new ChartEntry((float)(aiResult.fat ?? 0))
+            {
+                Label = "Fat",
+                ValueLabel = (aiResult.fat ?? 0).ToString(),
+                Color = SKColor.Parse("#F44336")  // 紅色
+            },
+            new ChartEntry((float)(aiResult.carbohydrates ?? 0))
+            {
+                Label = "Carbohydrate",
+                ValueLabel = (aiResult.carbohydrates ?? 0).ToString(),
+                Color = SKColor.Parse("#2196F3")  // 藍色
+            },
+            new ChartEntry((float)(aiResult.protein ?? 0))
+            {
+                Label = "Protein",
+                ValueLabel = (aiResult.protein ?? 0).ToString(),
+                Color = SKColor.Parse("#4CAF50")  // 綠色
+            }
+        },
+            LabelTextSize = 14,
+            BackgroundColor = SKColors.White
+        };
     }
     //取消按鈕
     private void OnDeleteClicked(object sender, EventArgs e)
@@ -61,6 +92,9 @@ public partial class NutritionAI : ContentPage
 
             // 補齊欄位
             aiResult.day = lblDate.Text;
+            // 確保時間有被記錄
+            if (aiResult.time == null)
+                aiResult.time = DateTime.Now.TimeOfDay;
 
             var response = await _client
                 .From<NutritionResult>()

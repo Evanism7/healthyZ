@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthyZ.Views.NutritionAI"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              Title="AI 分析結果" BackgroundColor="#D5E8D4">
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
@@ -41,6 +42,14 @@
                         <Label Text="碳水化合物：" TextColor="Black" />
                         <Label x:Name="lblCarbohydrate" Text="0" TextColor="Black"/>
                     </HorizontalStackLayout>
+                    <VerticalStackLayout  >
+                        <microcharts:ChartView
+                        x:Name="NutritionChart"
+                        HeightRequest="300"
+                        WidthRequest="300"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </Grid>
             <!-- 操作按鈕 -->
