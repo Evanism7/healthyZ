@@ -52,7 +52,7 @@ public partial class AIAssistant : ContentPage
                 prompt += "（無法從資料庫取得身高與體重資訊，請手動提供。）";
             }
         }
-        return $"{basePrompt} 請用純文字回答，不要使用星號、項目符號或特殊符號。";
+        return $"{prompt} 請用純文字回答，不要使用星號、項目符號或特殊符號。";
     }
 
     //按鈕設定
@@ -64,6 +64,7 @@ public partial class AIAssistant : ContentPage
         Prompt3Button.IsEnabled = enabled;
         Prompt4Button.IsEnabled = enabled;
     }
+
     //提示按鈕1
     private void Prompt1_Clicked(object sender, EventArgs e)
     {
@@ -76,10 +77,11 @@ public partial class AIAssistant : ContentPage
     //提示按鈕2
     private void Prompt2_Clicked(object sender, EventArgs e)
     {
-        var msg = "推薦我明天可以吃哪些健康餐？";
+        var msg = "今日健康餐？";
         AddUserMessage(msg);
         Button(false);
-        _ = SimulateAIResponse(msg);
+        var msg1="請給我一份健康早餐、午餐、晚餐的建議，包含主食、蛋白質、蔬菜和水果，字數在50字內。";
+        _ = SimulateAIResponse(msg1);
     }
 
     //提示按鈕3
