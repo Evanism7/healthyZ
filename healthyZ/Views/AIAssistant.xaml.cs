@@ -52,7 +52,7 @@ public partial class AIAssistant : ContentPage
                 prompt += "（無法從資料庫取得身高與體重資訊，請手動提供。）";
             }
         }
-        return $"{prompt} 請用純文字回答，不要使用星號、項目符號或特殊符號。";
+        return $"{prompt} 取小數後1位，用純文字回答，不要使用星號、項目符號或特殊符號。";
     }
 
     //按鈕設定
@@ -80,7 +80,7 @@ public partial class AIAssistant : ContentPage
         var msg = "今日健康餐？";
         AddUserMessage(msg);
         Button(false);
-        var msg1="請給我一份健康早餐、午餐、晚餐的建議，包含主食、蛋白質、蔬菜和水果，字數在50字內。";
+        var msg1="你現在是一位營養師，請幫我設計一份健康的早餐、午餐、晚餐建議，包含主食、蛋白質、蔬菜和水果。";
         _ = SimulateAIResponse(msg1);
     }
 
