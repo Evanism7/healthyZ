@@ -7,17 +7,17 @@ namespace healthy.Views;
 
 public partial class AIAssistant : ContentPage
 {
-    private Supabase.Client _client;    // Supabase¸ê®Æ®w³s½uÅÜ¼Æ
+    private Supabase.Client _client;    // Supabaseè³‡æ–™åº«é€£ç·šè®Šæ•¸
     public AIAssistant()
 	{
 		InitializeComponent();
 
-        // ªì©l¤Æ Supabase ³s½u
+        // åˆå§‹åŒ– Supabase é€£ç·š
         SupabaseClient supabaseClient = new SupabaseClient();
         _client = supabaseClient.GetClient();
     }
 
-    //§ì¨ú¨Ï¥ÎªÌ¸ê°T
+    //æŠ“å–ä½¿ç”¨è€…è³‡è¨Š
     private async Task<login> GetUserProfileFromDatabase()
     {
 
@@ -35,41 +35,41 @@ public partial class AIAssistant : ContentPage
 
     }
 
-    //´£¥Üµü½Õ®Õ
+    //æç¤ºè©èª¿æ ¡
     private async Task<string> CleanPrompt(string basePrompt)
     {
         string prompt = basePrompt;
 
-        // ¥[¤J¨Ï¥ÎªÌ°ò¥»¸ê®Æ¡]¨­°ªÅé­«¡^
-        if (basePrompt.Contains("´î­«") || basePrompt.Contains("Åé­«") || basePrompt.Contains("¨­°ª") || basePrompt.Contains("BMI"))
+        // åŠ å…¥ä½¿ç”¨è€…åŸºæœ¬è³‡æ–™ï¼ˆèº«é«˜é«”é‡ï¼‰
+        if (basePrompt.Contains("æ¸›é‡") || basePrompt.Contains("é«”é‡") || basePrompt.Contains("èº«é«˜") || basePrompt.Contains("BMI"))
         {
             var profile = await GetUserProfileFromDatabase();
 
             if (profile != null && profile.Height.HasValue && profile.Weight.HasValue)
             {
-                prompt += $" §Úªº¨­°ª¬O {profile.Height.Value} ¤½¤À¡AÅé­«¬O {profile.Weight.Value} ¤½¤ç¡C";
+                prompt += $" æˆ‘çš„èº«é«˜æ˜¯ {profile.Height.Value} å…¬åˆ†ï¼Œé«”é‡æ˜¯ {profile.Weight.Value} å…¬æ–¤ã€‚";
             }
             else
             {
-                prompt += "¡]µLªk±q¸ê®Æ®w¨ú±o¨­°ª»PÅé­«¸ê°T¡A½Ğ¤â°Ê´£¨Ñ¡C¡^";
+                prompt += "ï¼ˆç„¡æ³•å¾è³‡æ–™åº«å–å¾—èº«é«˜èˆ‡é«”é‡è³‡è¨Šï¼Œè«‹æ‰‹å‹•æä¾›ã€‚ï¼‰";
             }
         }
 
-        // ¥[¤J³Ìªñ¶¼­¹¸ê®ÆºK­n
+        // åŠ å…¥æœ€è¿‘é£²é£Ÿè³‡æ–™æ‘˜è¦
         var foodSummary = await GetRecentFoodSummary();
         if (!string.IsNullOrEmpty(foodSummary))
         {
-            prompt += $" ³o¬O§Ú³Ìªñªº¶¼­¹¬ö¿ı¡G{foodSummary}¡C";
+            prompt += $" é€™æ˜¯æˆ‘æœ€è¿‘çš„é£²é£Ÿç´€éŒ„ï¼š{foodSummary}ã€‚";
         }
 
-        return $"{prompt} ½Ğ¥Î¯Â¤å¦r¦^µª¡A¤£­n¨Ï¥Î¬P¸¹¡B¶µ¥Ø²Å¸¹©Î¯S®í²Å¸¹¡C";
+        return $"{prompt} å–å°æ•¸å¾Œ1ä½ï¼Œè«‹ç”¨ç´”æ–‡å­—å›ç­”ï¼Œä¸è¦ä½¿ç”¨æ˜Ÿè™Ÿã€é …ç›®ç¬¦è™Ÿæˆ–ç‰¹æ®Šç¬¦è™Ÿã€‚";
     }
-    //±q food_record §ì¸ê®Æ
+    //å¾ food_record æŠ“è³‡æ–™
     private async Task<string> GetRecentFoodSummary()
     {
         var accountId = Preferences.Get("account_id", null);
         if (string.IsNullOrEmpty(accountId))
-            return "µLªk¨ú±o¨Ï¥ÎªÌ¸ê°T¡C";
+            return "ç„¡æ³•å–å¾—ä½¿ç”¨è€…è³‡è¨Šã€‚";
 
         var result = await _client
             .From<NutritionResult>()
@@ -79,27 +79,27 @@ public partial class AIAssistant : ContentPage
             .Get();
 
         if (result.Models.Count == 0)
-            return "©|µL³Ìªñ¶¼­¹¬ö¿ı¡C";
+            return "å°šç„¡æœ€è¿‘é£²é£Ÿç´€éŒ„ã€‚";
 
-        // ­pºâ³Ìªñ¶¼­¹ªº¥­§¡­È
+        // è¨ˆç®—æœ€è¿‘é£²é£Ÿçš„å¹³å‡å€¼
         var avgCalories = result.Models.Average(x => x.calories);
         var avgProtein = result.Models.Average(x => x.protein);
         var avgCarbs = result.Models.Average(x => x.carbohydrates);
         var avgFat = result.Models.Average(x => x.fat);
 
-        // ²Õ¦X¬ö¿ıºK­n
+        // çµ„åˆç´€éŒ„æ‘˜è¦
         var foodSummaries = result.Models.Select(x =>
-            $"{x.day} ¦Y¤F {x.food_name}¡A¼ö¶q{x.calories}kcal¡A³J¥Õ½è{x.protein}g¡AºÒ¤ô{x.carbohydrates}g¡A¯×ªÕ{x.fat}g");
+            $"{x.day} åƒäº† {x.food_name}ï¼Œç†±é‡{x.calories}kcalï¼Œè›‹ç™½è³ª{x.protein}gï¼Œç¢³æ°´{x.carbohydrates}gï¼Œè„‚è‚ª{x.fat}g");
 
-        var summaryText = string.Join("¡F", foodSummaries);
+        var summaryText = string.Join("ï¼›", foodSummaries);
 
-        // «Ø¥ß§ó¨ã¤ÀªR©ÊªººK­n¡A¥[¤J¥­§¡­È
-        return $"³o¬O§Ú³Ìªñªº¶¼­¹¬ö¿ı¡G{summaryText}¡Cºî¦X¨Ó¬İ¡A§Ú¹L¥h´X¤Ñªº¥­§¡Äá¨ú¶q¬°¡G¼ö¶q¬ù {avgCalories:F0} ¤j¥d¡A³J¥Õ½è¬ù {avgProtein:F0} ¤½§J¡AºÒ¤ô¤Æ¦Xª«¬ù {avgCarbs:F0} ¤½§J¡A¯×ªÕ¬ù {avgFat:F0} ¤½§J¡C";
+        // å»ºç«‹æ›´å…·åˆ†ææ€§çš„æ‘˜è¦ï¼ŒåŠ å…¥å¹³å‡å€¼
+        return $"é€™æ˜¯æˆ‘æœ€è¿‘çš„é£²é£Ÿç´€éŒ„ï¼š{summaryText}ã€‚ç¶œåˆä¾†çœ‹ï¼Œæˆ‘éå»å¹¾å¤©çš„å¹³å‡æ”å–é‡ç‚ºï¼šç†±é‡ç´„ {avgCalories:F0} å¤§å¡ï¼Œè›‹ç™½è³ªç´„ {avgProtein:F0} å…¬å…‹ï¼Œç¢³æ°´åŒ–åˆç‰©ç´„ {avgCarbs:F0} å…¬å…‹ï¼Œè„‚è‚ªç´„ {avgFat:F0} å…¬å…‹ã€‚";
     }
     
 
 
-    //«ö¶s³]©w
+    //æŒ‰éˆ•è¨­å®š
     private void Button(bool enabled)
     {
         SendButton.IsEnabled = enabled;
@@ -108,43 +108,45 @@ public partial class AIAssistant : ContentPage
         Prompt3Button.IsEnabled = enabled;
         Prompt4Button.IsEnabled = enabled;
     }
-    //´£¥Ü«ö¶s1
+
+    //æç¤ºæŒ‰éˆ•1
     private void Prompt1_Clicked(object sender, EventArgs e)
     {
-        var msg = "«ç»ò³W¹º¤@¶gªº°·±d«K·íµæ³æ¡H";
+        var msg = "æ€éº¼è¦åŠƒä¸€é€±çš„å¥åº·ä¾¿ç•¶èœå–®ï¼Ÿ";
         AddUserMessage(msg);
         Button(false);
         _=SimulateAIResponse(msg);
     }
 
-    //´£¥Ü«ö¶s2
+    //æç¤ºæŒ‰éˆ•2
     private void Prompt2_Clicked(object sender, EventArgs e)
     {
-        var msg = "±ÀÂË§Ú©ú¤Ñ¥i¥H¦Y­ş¨Ç°·±dÀ\¡H";
+        var msg = "ä»Šæ—¥å¥åº·é¤ï¼Ÿ";
         AddUserMessage(msg);
         Button(false);
-        _ = SimulateAIResponse(msg);
+        var msg1="ä½ ç¾åœ¨æ˜¯ä¸€ä½ç‡Ÿé¤Šå¸«ï¼Œè«‹å¹«æˆ‘è¨­è¨ˆä¸€ä»½å¥åº·çš„æ—©é¤ã€åˆé¤ã€æ™šé¤å»ºè­°ï¼ŒåŒ…å«ä¸»é£Ÿã€è›‹ç™½è³ªã€è”¬èœå’Œæ°´æœã€‚";
+        _ = SimulateAIResponse(msg1);
     }
 
-    //´£¥Ü«ö¶s3
+    //æç¤ºæŒ‰éˆ•3
     private void Prompt3_Clicked(object sender, EventArgs e)
     {
-        var msg = "½Ğ®Ú¾Ú§Ú³Ìªñªº¶¼­¹¬ö¿ı»s§@¤@±i¶¼­¹²M³æ";
+        var msg = "è«‹æ ¹æ“šæˆ‘æœ€è¿‘çš„é£²é£Ÿç´€éŒ„è£½ä½œä¸€å¼µé£²é£Ÿæ¸…å–®";
         AddUserMessage(msg);
         Button(false);
         _ = SimulateAIResponse(msg);
     }
 
-    //´£¥Ü«ö¶s4
+    //æç¤ºæŒ‰éˆ•4
     private void Prompt4_Clicked(object sender, EventArgs e)
     {
-        var msg = "´î­«ªº¤H¸Ó«ç»ò¦Y¤~¤£·|´_­D¡H";
+        var msg = "æ¸›é‡çš„äººè©²æ€éº¼åƒæ‰ä¸æœƒå¾©èƒ–ï¼Ÿ";
         AddUserMessage(msg);
         Button(false);
         _ = SimulateAIResponse(msg);
     }
 
-    //¹ï¸Ü«ö¶s
+    //å°è©±æŒ‰éˆ•
     private async void SendButton_Clicked(object sender, EventArgs e)
     {
         string message = InputEntry.Text?.Trim();
@@ -158,7 +160,7 @@ public partial class AIAssistant : ContentPage
 
     }
 
-    // ¨Ï¥ÎªÌ®ø®§®ğªw
+    // ä½¿ç”¨è€…æ¶ˆæ¯æ°£æ³¡
     private void AddUserMessage(string text)
     {
         var userBubble = new Border
@@ -185,7 +187,7 @@ public partial class AIAssistant : ContentPage
         ScrollToBottom();
     }
 
-    // AI®ø®§®ğªw
+    // AIæ¶ˆæ¯æ°£æ³¡
     private void AddAIMessage(string text)
     {
         var aiBubble = new Border
@@ -212,30 +214,30 @@ public partial class AIAssistant : ContentPage
         ScrollToBottom();
     }
 
-    //AI¦^´_
+    //AIå›å¾©
     private async Task SimulateAIResponse(string userMessage)
     {
-        AddAIMessage("AI ¥¿¦b«ä¦Ò¤¤...");
+        AddAIMessage("AI æ­£åœ¨æ€è€ƒä¸­...");
 
         try
         {
-            // §A­n¹ê§@³o­Ó¤èªk
+            // ä½ è¦å¯¦ä½œé€™å€‹æ–¹æ³•
             var gemini = new AnalyzeImageContent();
             string finalPrompt = await CleanPrompt(userMessage);
             string aiResponse = await gemini.AIAss(finalPrompt);
             Button(true);
 
-            ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1); // ²¾°£"«ä¦Ò¤¤"
+            ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1); // ç§»é™¤"æ€è€ƒä¸­"
             AddAIMessage(aiResponse);
         }
         catch (Exception ex)
         {
             ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1);
-            AddAIMessage($"µo¥Í¿ù»~¡G{ex.Message}");
+            AddAIMessage($"ç™¼ç”ŸéŒ¯èª¤ï¼š{ex.Message}");
         }
     }
 
-    // ºu°Ê¨ì³Ì©³³¡
+    // æ»¾å‹•åˆ°æœ€åº•éƒ¨
     private async void ScrollToBottom()
     {
         await MainThread.InvokeOnMainThreadAsync(async () =>
