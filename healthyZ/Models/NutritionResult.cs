@@ -34,6 +34,7 @@ namespace healthyZ.Models
         public int? calories { get; set; }
         [Column("day")]
         public string day { get; set; }
-
+        [Column("time")]
+        public TimeSpan? time { get; set; }
     }
 }

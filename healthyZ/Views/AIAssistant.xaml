@@ -17,8 +17,8 @@
         <ScrollView Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,50">  
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Button x:Name="Prompt1Button" Text="怎麼規劃一週的健康便當菜單？" Clicked="Prompt1_Clicked"  BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12"/>
-                <Button x:Name="Prompt2Button" Text="今日健康餐？" Clicked="Prompt2_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12" />
-                <Button x:Name="Prompt3Button" Text="我該怎麼調整飲食？" Clicked="Prompt3_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12" />
+                <Button x:Name="Prompt2Button" Text="推薦我明天可以吃哪些健康餐？" Clicked="Prompt2_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12" />
+                <Button x:Name="Prompt3Button" Text="請根據我最近飲食紀錄製作一張飲食清單!" Clicked="Prompt3_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12" />
                 <Button x:Name="Prompt4Button" Text="減重的人該怎麼吃才不會復胖？" Clicked="Prompt4_Clicked" BackgroundColor="#D5E8D4" TextColor="Black" FontSize="12" />  
             </StackLayout>  
         </ScrollView>  
@@ -34,8 +34,8 @@
                 <ColumnDefinition Width="*"/>  
                 <ColumnDefinition Width="Auto"/>  
             </Grid.ColumnDefinitions>  
-            <Entry x:Name="InputEntry" Placeholder="請輸入訊息..." Grid.Column="0"/>
-            <Button x:Name="SendButton" Text="➤" Clicked="SendButton_Clicked" BackgroundColor="#A5D6A7" TextColor="White" Grid.Column="1"/>  
+            <Entry x:Name="InputEntry" Placeholder="請輸入訊息..." Grid.Column="0" TextColor="Black"/>
+            <Button x:Name="SendButton" Text="➤" Clicked="SendButton_Clicked" BackgroundColor="#A5D6A7" TextColor="Black" Grid.Column="1"/>  
         </Grid>  
     </Grid>  
 
