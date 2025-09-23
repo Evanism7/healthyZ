@@ -3,43 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="healthyZ.Views.LoginPage"
              Title="請登入" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
-    <StackLayout Padding="30" Spacing="20"
-                 VerticalOptions="Center">
+    <StackLayout Padding="0" Spacing="30"
+                 VerticalOptions="Start">
 
-        <Label Text="請輸入帳號與密碼" 
-               FontSize="20" 
-               TextColor="#48786F"
-               HorizontalOptions="Center"/>
+        <Image Source="logo1.png"
+       WidthRequest="180"
+       HeightRequest="180"
+       HorizontalOptions="Center"
+       Margin="0,50,0,10"/>
 
-        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12" WidthRequest="220" HorizontalOptions="Center">
             <Entry x:Name="entryUid" 
            Placeholder="帳號" 
            Keyboard="Email"
            TextColor="#48786F"
-           BackgroundColor="#80FFFFFF"/>
+           BackgroundColor="#80FFFFFF"
+           WidthRequest="218"
+           HorizontalOptions="Center"/>
         </Border>
 
-        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12" WidthRequest="220" HorizontalOptions="Center">
             <Entry x:Name="entryPwd" 
            Placeholder="密碼" 
            IsPassword="True"
            TextColor="#48786F"
-           BackgroundColor="#80FFFFFF"/>
+           BackgroundColor="#80FFFFFF"
+           WidthRequest="218"
+           HorizontalOptions="Center"/>
         </Border>
 
-        <Button Text="登入"
-                Clicked="OnLoginClicked"
-                TextColor="#48786F"
-                BackgroundColor="#9AC7BF"
-                BorderColor="#67AB9F"
-                BorderWidth="1"/>
-
-        <Button Text="註冊" 
-                Clicked="OnRegisterClicked" 
-                TextColor="#48786F"
-                BackgroundColor="#9AC7BF"
-                BorderColor="#67AB9F"
-                BorderWidth="1"/>
+        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+            <Button Text="註冊" 
+            Clicked="OnRegisterClicked" 
+            TextColor="#48786F"
+            BackgroundColor="#80FFFFFF"
+            BorderColor="#67AB9F"
+            BorderWidth="1"
+            WidthRequest="90"/>
+            <Button Text="登入"
+            Clicked="OnLoginClicked"
+            TextColor="#48786F"
+            BackgroundColor="#9AC7BF"
+            BorderColor="#67AB9F"
+            BorderWidth="1"
+            WidthRequest="110"/>
+        </HorizontalStackLayout>
 
     </StackLayout>
 </ContentPage>
