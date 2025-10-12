@@ -1,16 +1,21 @@
 using healthy.AI;
+
 using healthyZ.Models;
 using Microsoft.Maui.Controls.Shapes;
 
 using Supabase.Gotrue;
 namespace healthy.Views;
 
+
 public partial class AIAssistant : ContentPage
 {
     private Supabase.Client _client;    // Supabase資料庫連線變數
     public AIAssistant()
 	{
-		InitializeComponent();
+
+        InitializeComponent();
+	}
+
 
         // 初始化 Supabase 連線
         SupabaseClient supabaseClient = new SupabaseClient();
