@@ -1,4 +1,4 @@
-namespace healthyZ.Views;
+namespace healthy.Views;
 using healthyZ.Models;
 
 public partial class MainScreen : ContentPage
@@ -12,7 +12,7 @@ public partial class MainScreen : ContentPage
     {
         base.OnAppearing();
         var username = Preferences.Get("username", "使用者");
-        this.Title = $"歡迎，{username}";
+        usernameLabel.Text = $"歡迎，{username}";
     }
 
     //拍照分析

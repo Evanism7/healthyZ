@@ -1,4 +1,3 @@
-
 using healthyZ.AI;
 using healthyZ.Models;
 using healthyZ.Views;
@@ -6,19 +5,16 @@ using Newtonsoft.Json;
 using System.Text.Json;
 namespace healthy.Views;
 
-
 public partial class Photograph : ContentPage
 {
-    private string currentPhotoPath;   //ç›®å‰ç…§ç‰‡æª”æ¡ˆè·¯å¾‘
+    private string currentPhotoPath;   //¥Ø«e·Ó¤ùÀÉ®×¸ô®|
     public Photograph()
     {
 
         InitializeComponent();
-
     }
 
-
-    //ç›¸ç°¿æŒ‰éˆ•
+    //¬ÛÃ¯«ö¶s
     private async void OnPickPhotoClicked(object sender, EventArgs e)
     {
         FileResult? photo = await MediaPicker.Default.PickPhotoAsync();
@@ -36,7 +32,7 @@ public partial class Photograph : ContentPage
         }
     }
 
-    //æ‹ç…§æŒ‰éˆ•
+    //©ç·Ó«ö¶s
     private async void OnTakePhotoClicked(object sender, EventArgs e)
     {
         if (MediaPicker.Default.IsCaptureSupported)
@@ -62,33 +58,33 @@ public partial class Photograph : ContentPage
 
     }
 
-    //ä¸‹ä¸€æ­¥æŒ‰éˆ•
+    //¤U¤@¨B«ö¶s
     private async void OnNextstepClicked(object sender, EventArgs e)
     {
         
 
         
-        //æª¢æŸ¥æ˜¯å¦æœ‰é¸å–ç…§ç‰‡
+        //ÀË¬d¬O§_¦³¿ï¨ú·Ó¤ù
         if (string.IsNullOrEmpty(currentPhotoPath))
         {
-            await DisplayAlert("éŒ¯èª¤", "è«‹å…ˆé¸å–ç…§ç‰‡.", "OK");
+            await DisplayAlert("¿ù»~", "½Ğ¥ı¿ï¨ú·Ó¤ù.", "OK");
             return;
         }
         LoadingLabel.IsVisible = true;
-        //å‘¼å«åˆ†æç…§ç‰‡å…§å®¹çš„ç¨‹å¼
+        //©I¥s¤ÀªR·Ó¤ù¤º®eªºµ{¦¡
         try
         {
-            // 1. å…ˆå‘¼å« AnalyzeImageAsync æ‹¿åˆ° result å­—ä¸²
+            // 1. ¥ı©I¥s AnalyzeImageAsync ®³¨ì result ¦r¦ê
             AnalyzeImage _analyzeImage = new AnalyzeImage();
             var result = await _analyzeImage.AnalyzeImageAsync(currentPhotoPath, "local");
             NutritionResult jsonResult = JsonConvert.DeserializeObject<NutritionResult>(result);
             LoadingLabel.IsVisible = false;
-            // 2. å¸¶è‘— result è·³åˆ° NutritionAI é é¢
+            // 2. ±aµÛ result ¸õ¨ì NutritionAI ­¶­±
             await Navigation.PushAsync(new NutritionAI(jsonResult));
         }
         catch (Exception ex)
         {
-            await DisplayAlert("éŒ¯èª¤", $"åˆ†æç…§ç‰‡å…§å®¹æ™‚ç™¼ç”ŸéŒ¯èª¤: {ex.Message}", "OK");
+            await DisplayAlert("¿ù»~", $"¤ÀªR·Ó¤ù¤º®e®Éµo¥Í¿ù»~: {ex.Message}", "OK");
         }
 
     }

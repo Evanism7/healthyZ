@@ -1,7 +1,7 @@
 using Microsoft.Maui.Storage;
 using healthyZ.Models;
 
-namespace healthyZ.Views;
+namespace healthy.Views;
 
 public partial class Myprofile : ContentPage
 {

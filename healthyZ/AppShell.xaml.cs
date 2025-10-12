@@ -1,6 +1,4 @@
-﻿using healthyZ.Views;
-
-namespace healthyZ
+﻿namespace healthyZ
 {
     public partial class AppShell : Shell
     {
@@ -9,7 +7,6 @@ namespace healthyZ
             InitializeComponent();
 
             //定義頁面路徑
-
             Routing.RegisterRoute(nameof(healthy.Views.MainScreen), typeof(healthy.Views.MainScreen));
             Routing.RegisterRoute(nameof(healthy.Views.Turntable), typeof(healthy.Views.Turntable));
             Routing.RegisterRoute(nameof(healthy.Views.New_Diet_record), typeof(healthy.Views.New_Diet_record));
@@ -28,17 +25,10 @@ namespace healthyZ
             bool answer = await this.DisplayAlert("登出確認", "您確定要登出嗎？", "是", "否");
             if (answer)
             {
-                // 清除登入資訊（如有儲存 Preferences）
-                Preferences.Clear();
-
-                // 回到登入頁面，並清除 Shell 架構與導覽堆疊
-                Application.Current.MainPage = new NavigationPage(new LoginPage())
-                {
-                    BarBackgroundColor = Color.FromArgb("#D5E8D4"),
-                    BarTextColor = Color.FromArgb("#5A7C78")
-                };
-                // 否則什麼都不做
+                // 回到登入頁面，並清除導覽堆疊
+                await Shell.Current.GoToAsync("//login");
             }
+            // 否則什麼都不做，停留在原畫面
         }
     }
 }

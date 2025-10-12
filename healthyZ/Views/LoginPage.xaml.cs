@@ -1,6 +1,5 @@
 using healthyZ.Models;
-namespace healthyZ.Views;
-using healthyZ;
+namespace healthy.Views;
 
 public partial class LoginPage : ContentPage
 {
@@ -15,8 +14,6 @@ public partial class LoginPage : ContentPage
     //登入
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-        // 登入驗證成功後導入主 Shell 架構
-        Application.Current.MainPage = new AppShell();
 
         string account_id = entryUid.Text?.Trim();
         string password = entryPwd.Text;
@@ -36,7 +33,7 @@ public partial class LoginPage : ContentPage
                 Preferences.Set("username", existingUser.username);
 
                 // 導向記事清單頁面
-                await Shell.Current.GoToAsync("//MainScreen");
+                await Shell.Current.GoToAsync("MainScreen");
             }
             else
             {
@@ -50,8 +47,8 @@ public partial class LoginPage : ContentPage
     }
     
     //註冊
-    private async void OnRegisterClicked(object sender, EventArgs e)
+    private void OnRegisterClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new RegisterPage());
+        Shell.Current.GoToAsync(nameof(RegisterPage));
     }
 }

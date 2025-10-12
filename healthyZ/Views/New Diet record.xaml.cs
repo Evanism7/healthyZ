@@ -1,12 +1,12 @@
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace healthyZ.Views;
+namespace healthy.Views;
 
 public partial class New_Diet_record : ContentPage
 {
 	public New_Diet_record()
 	{
-        InitializeComponent();
+		InitializeComponent();
 	}
     //點選照片時, 刪除照片
     private void OnPhotoSelected(object sender, SelectionChangedEventArgs e)

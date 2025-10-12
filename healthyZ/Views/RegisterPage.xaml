@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
-             x:Class="healthyZ.Views.RegisterPage"
+             x:Class="healthy.RegisterPage"
              Title="註冊" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
