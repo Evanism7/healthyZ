@@ -5,7 +5,17 @@
              Title="拍照分析" Shell.TitleColor="#5A7C78" BackgroundColor="#D5E8D4">
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
+            <!-- 🌀 正在查詢提示 -->
+            <Label x:Name="LoadingLabel"
+                Text="分析中，請稍候..."
+                FontSize="16"
+                TextColor="Gray"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                Margin="0,10,0,0"/>     
             <VerticalStackLayout>
+               
+                <!-- 📷 照片顯示區 -->
                 <Border
                 Stroke="#67AB9F"
                 StrokeThickness="3"
@@ -41,6 +51,7 @@
                  CornerRadius="25"
                  VerticalOptions="End"
                  BackgroundColor="Transparent"/>
+
             </HorizontalStackLayout>
         </StackLayout>
     </ScrollView>

@@ -9,14 +9,16 @@ namespace healthyZ
             InitializeComponent();
 
             //定義頁面路徑
-            Routing.RegisterRoute(nameof(healthyZ.Views.MainScreen), typeof(healthyZ.Views.MainScreen));
-            Routing.RegisterRoute(nameof(healthyZ.Views.Turntable), typeof(healthyZ.Views.Turntable));
-            Routing.RegisterRoute(nameof(healthyZ.Views.New_Diet_record), typeof(healthyZ.Views.New_Diet_record));
-            Routing.RegisterRoute(nameof(healthyZ.Views.Diet_record), typeof(healthyZ.Views.Diet_record));
-            Routing.RegisterRoute(nameof(healthyZ.Views.Photograph), typeof(healthyZ.Views.Photograph));
-            Routing.RegisterRoute(nameof(healthyZ.Views.Myprofile), typeof(healthyZ.Views.Myprofile));
-            Routing.RegisterRoute(nameof(healthyZ.Views.AIAssistant), typeof(healthyZ.Views.AIAssistant));
-            Routing.RegisterRoute(nameof(healthyZ.Views.RegisterPage), typeof(healthyZ.Views.RegisterPage));
+
+            Routing.RegisterRoute(nameof(healthy.Views.MainScreen), typeof(healthy.Views.MainScreen));
+            Routing.RegisterRoute(nameof(healthy.Views.Turntable), typeof(healthy.Views.Turntable));
+            Routing.RegisterRoute(nameof(healthy.Views.New_Diet_record), typeof(healthy.Views.New_Diet_record));
+            Routing.RegisterRoute(nameof(healthy.Views.Diet_record), typeof(healthy.Views.Diet_record));
+            Routing.RegisterRoute(nameof(healthy.Views.Photograph), typeof(healthy.Views.Photograph));
+            Routing.RegisterRoute(nameof(healthy.Views.Myprofile), typeof(healthy.Views.Myprofile));
+            Routing.RegisterRoute(nameof(healthy.Views.AIAssistant), typeof(healthy.Views.AIAssistant));
+            Routing.RegisterRoute(nameof(healthy.RegisterPage), typeof(healthy.RegisterPage));
+            Routing.RegisterRoute(nameof(healthyZ.Views.NutritionAI), typeof(healthyZ.Views.NutritionAI));
             Routing.RegisterRoute(nameof(healthyZ.Views.RestaurantPage), typeof(healthyZ.Views.RestaurantPage));
 
         }

@@ -148,14 +148,36 @@ public partial class Turntable : ContentPage
 
     private void OnSpinClicked(object sender, EventArgs e)
     {
+        if (_segments.Count == 0)
+        {
+            DisplayAlert("提示", "請先新增至少一項食物", "確定");
+            return;
+        }
         var random = new Random();
         float target = _angle + 360 * 5 + random.Next(0, 360); // 5圈+隨機角度
+        float finalAngle = target % 360;
         this.Animate("spin", d =>
         {
             _angle = (float)d;
             WheelView.Invalidate();
-        }, _angle, target, 16, 2000, Easing.CubicOut);
-        _angle = target % 360;
+        }
+        , _angle, target, 16, 2000, Easing.CubicOut, async (value, finished) =>
+        {
+            _angle = finalAngle;
+
+            // 計算選中的項目
+            float pointerAngle = 270f; // 12點鐘方向
+            float currentAngle = (_angle % 360 + 360) % 360; // 確保正角度
+            float adjustedAngle = (pointerAngle - currentAngle + 360) % 360;
+
+            float sliceAngle = 360f / _segments.Count;
+            int index = (int)(adjustedAngle / sliceAngle);
+
+
+            string selectedItem = _segments[index];
+
+            await ShowResultPopup(selectedItem);
+        });
     }
 
     private void OnResetClicked(object sender, EventArgs e)
@@ -164,5 +186,9 @@ public partial class Turntable : ContentPage
         FoodEditor.Text = string.Empty; // 清空文字框
         WheelView.Drawable = new WheelDrawable(_segments, _colors, () => _angle);
         WheelView.Invalidate();
+    }
+    private async Task ShowResultPopup(string result)
+    {
+        await DisplayAlert("中獎結果", $"你抽中了：{result}", "確定");
     }
 }

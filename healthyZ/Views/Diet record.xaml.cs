@@ -1,21 +1,107 @@
-namespace healthyZ.Views;
 
-public partial class Diet_record : ContentPage
+using healthyZ.Models;
+using Microcharts;
+using Supabase;
+using Syncfusion.Maui.Charts;
+using System.Collections.ObjectModel;
+
+
+namespace healthy.Views
 {
-	public Diet_record()
-	{
-        InitializeComponent();
-	}
 
-    // ÂI«ö³æµ§°O¨Æ®É±N¸Óµ§¶Ç°e½s¿è­¶­±¨Ã¶}±ÒÂI«ö³æµ§°O¨Æ®É±N¸Óµ§¶Ç°e½s¿è­¶­±¨Ã¶}±Ò
-    private void OnItemTapped(object sender, ItemTappedEventArgs e)
+    public partial class Diet_record : ContentPage
+
     {
-        
+        private Supabase.Client _client;
+        private ObservableCollection<NutritionResult> nutritionResults = new ObservableCollection<NutritionResult>();
+
+        public ObservableCollection<NutritionInfo> NutritionData { get; set; } = new ObservableCollection<NutritionInfo>();
+
+        public Diet_record()
+        {
+            InitializeComponent();
+            notesListView.ItemsSource = nutritionResults;
+
+            _client = new Supabase.Client("https://zgajpjoewcbijoplqnti.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYWpwam9ld2NiaWpvcGxxbnRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MjAwMTMsImV4cCI6MjA2Njk5NjAxM30.RIuoFbPdEKAYrn4lw7Ei-VkoKx44dnnk9pdP-G8GX3g");
+            BindingContext = this; // ç¢ºä¿ Pie Chart èƒ½ç¶åˆ° NutritionData
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadFoodRecords();
+        }
+
+        private async Task LoadFoodRecords()
+        {
+            try
+            {
+                var response = await _client
+                    .From<NutritionResult>()
+                    .Get();
+
+                if (response.Models != null)
+                {
+                    nutritionResults.Clear();
+                    foreach (var item in response.Models)
+                    {
+                        nutritionResults.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("éŒ¯èª¤", $"è¼‰å…¥é£Ÿç‰©ç´€éŒ„å¤±æ•—ï¼š{ex.Message}", "ç¢ºå®š");
+            }
+        }
+
+        private void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item is NutritionResult selectedItem)
+            {
+                DisplayAlert("é£Ÿç‰©è³‡è¨Š",
+                    $"åç¨±: {selectedItem.food_name}\nç†±é‡: {selectedItem.calories} kcal",
+                    "é—œé–‰");
+            }
+
+            ((ListView)sender).SelectedItem = null;
+        }
+
+        private async void OnAnalyzeClicked(object sender, EventArgs e)
+        {
+            DateTime start = StartDatePicker.Date;
+            DateTime end = EndDatePicker.Date;
+
+            var filtered = nutritionResults
+                .Where(n => DateTime.TryParse(n.day, out DateTime d) && d >= start && d <= end)
+                .ToList();
+
+            if (!filtered.Any())
+            {
+                await DisplayAlert("æç¤º", "æ­¤æœŸé–“å…§ç„¡ç´€éŒ„", "ç¢ºå®š");
+                return;
+            }
+
+            double totalCalories = (double)filtered.Sum(n => n.calories);
+            double totalCarbs = (double)filtered.Sum(n => n.carbohydrates);
+            double totalProtein = (double)filtered.Sum(n => n.protein);
+            double totalFat = (double)filtered.Sum(n => n.fat);
+
+            // æ›´æ–° Label
+            TotalCaloriesLabel.Text = $"ç¸½ç†±é‡: {totalCalories} kcal";
+
+            // åªçµ¦ä¸‰å¤§ç‡Ÿé¤Šç´ ç•«åœ–
+            NutritionData.Clear();
+            NutritionData.Add(new NutritionInfo { Category = "ç¢³æ°´åŒ–åˆç‰© (g)", Value = totalCarbs });
+            NutritionData.Add(new NutritionInfo { Category = "è›‹ç™½è³ª (g)", Value = totalProtein });
+            NutritionData.Add(new NutritionInfo { Category = "è„‚è‚ª (g)", Value = totalFat });
+        }
+
     }
-    // ÂI«ö·s¼W°O¨Æ«ö¶s®É¶}±Ò·s¼W°O¨Æ­¶­±
 
-    private void OnAddNoteClicked(object sender, EventArgs e)
+    public class NutritionInfo
     {
-        Shell.Current.GoToAsync("New_Diet_record");
+        public string Category { get; set; }
+        public double Value { get; set; }
     }
 }

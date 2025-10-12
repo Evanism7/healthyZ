@@ -12,6 +12,7 @@
        HorizontalOptions="Center"
        Margin="0,50,0,10"/>
 
+
         <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12" WidthRequest="220" HorizontalOptions="Center">
             <Entry x:Name="entryUid" 
            Placeholder="帳號" 
@@ -30,6 +31,7 @@
            BackgroundColor="#80FFFFFF"
            WidthRequest="218"
            HorizontalOptions="Center"/>
+
         </Border>
 
         <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
