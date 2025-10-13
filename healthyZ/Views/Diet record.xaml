@@ -1,10 +1,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-
              xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:Class="healthy.Views.Diet_record"
              Title="飲食紀錄" BackgroundColor="#D5E8D4">
-
 
     <StackLayout Padding="10">
         <VerticalStackLayout Padding="10">
