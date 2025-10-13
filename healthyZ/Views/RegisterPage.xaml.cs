@@ -1,5 +1,5 @@
 using healthyZ.Models;
-namespace healthyZ.Views;
+namespace healthy;
 
 public partial class RegisterPage : ContentPage
 {
@@ -7,7 +7,7 @@ public partial class RegisterPage : ContentPage
 
     public RegisterPage()
 	{
-        InitializeComponent();
+		InitializeComponent();
         // 初始化 Supabase 連線
         SupabaseClient supabaseClient = new SupabaseClient();
         _client = supabaseClient.GetClient();

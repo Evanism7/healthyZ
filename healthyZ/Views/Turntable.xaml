@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="healthyZ.Views.Turntable"
+             x:Class="healthy.Views.Turntable"
              Title="轉盤"
              Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
@@ -52,7 +52,7 @@
                     <Button Text="重置"
                 Clicked="OnResetClicked"
                 BackgroundColor="#F27272"
-                TextColor="#FFFFFF"
+                TextColor="#48786F"
                 WidthRequest="70"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>

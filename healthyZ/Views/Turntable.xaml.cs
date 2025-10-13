@@ -1,4 +1,4 @@
-namespace healthyZ.Views;
+namespace healthy.Views;
 using Microsoft.Maui.Graphics;
 using System;
 using System.Collections.Generic;
