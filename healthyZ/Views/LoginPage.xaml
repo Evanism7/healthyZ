@@ -11,19 +11,27 @@
                TextColor="#48786F"
                HorizontalOptions="Center"/>
 
-        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12"  WidthRequest="250"
+                HeightRequest="50">
             <Entry x:Name="entryUid" 
            Placeholder="帳號" 
            Keyboard="Email"
            TextColor="#48786F"
-           BackgroundColor="#80FFFFFF"/>
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           BackgroundColor="#80FFFFFF"
+           Margin="10,0"/>
         </Border>
 
-        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+        <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12"  WidthRequest="250"
+                HeightRequest="50">
             <Entry x:Name="entryPwd" 
            Placeholder="密碼" 
            IsPassword="True"
            TextColor="#48786F"
+           FontSize="18"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
            BackgroundColor="#80FFFFFF"/>
         </Border>
 
@@ -32,14 +40,20 @@
                 TextColor="#48786F"
                 BackgroundColor="#9AC7BF"
                 BorderColor="#67AB9F"
-                BorderWidth="1"/>
+                BorderWidth="1"
+                WidthRequest="250"
+                HeightRequest="50"
+                CornerRadius="12"/>
 
         <Button Text="註冊" 
                 Clicked="OnRegisterClicked" 
                 TextColor="#48786F"
                 BackgroundColor="#9AC7BF"
                 BorderColor="#67AB9F"
-                BorderWidth="1"/>
+                BorderWidth="1"
+                 WidthRequest="250"
+                HeightRequest="50"
+                CornerRadius="12"/>
 
     </StackLayout>
 </ContentPage>

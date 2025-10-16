@@ -30,10 +30,20 @@ namespace healthy.Views
 
         private async Task LoadFoodRecords()
         {
+           
             try
             {
+                var accountId = Preferences.Get("account_id", string.Empty);
+
+                if (string.IsNullOrEmpty(accountId))
+                {
+                    await DisplayAlert("¿ù»~", "©|¥¼µn¤J", "½T©w");
+                    return;
+                }
+
                 var response = await _client
                     .From<NutritionResult>()
+                    .Where(x => x.account_id == accountId)
                     .Get();
 
                 if (response.Models != null)
