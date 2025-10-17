@@ -16,7 +16,7 @@ public partial class AIAssistant : ContentPage
         _client = supabaseClient.GetClient();
     }
 
-    //抓取使用者資訊
+    //抓取使用者個人資訊
     private async Task<login> GetUserProfileFromDatabase()
     {
 
@@ -33,36 +33,151 @@ public partial class AIAssistant : ContentPage
         return result.Models.FirstOrDefault();
 
     }
+    //抓取使用者飲食紀錄
+    private async Task<List<NutritionResult>> GetUserNutritionRecordsFromDatabase()
+    {
+        var accountId = Preferences.Get("account_id", null);
 
+        if (string.IsNullOrEmpty(accountId))
+            return new List<NutritionResult>();
+
+        var result = await _client
+            .From<NutritionResult>()
+            .Where(x => x.account_id == accountId)
+            .Get();
+
+        return result.Models;
+    }
     //提示詞調校
+    //提示詞調校（第三版）
     private async Task<string> CleanPrompt(string basePrompt)
     {
         string prompt = basePrompt;
+        string lowerPrompt = basePrompt; // 保留中文，不強制轉小寫
 
-        if (basePrompt.Contains("減重") || basePrompt.Contains("體重") || basePrompt.Contains("身高") || basePrompt.Contains("BMI"))
+        try
         {
-            var profile = await GetUserProfileFromDatabase();
+            // 同時查詢個人資料與飲食紀錄，避免等待卡住
+            var profileTask = GetUserProfileFromDatabase();
+            var nutritionTask = GetUserNutritionRecordsFromDatabase();
 
-            if (profile != null && profile.Height.HasValue && profile.Weight.HasValue)
+            await Task.WhenAll(profileTask, nutritionTask);
+
+            var profile = profileTask.Result;
+            var nutritionRecords = nutritionTask.Result;
+
+            //個人資料
+            
+            var keywordMap = new Dictionary<string, string[]>
+        {
+            { "Age", new[] { "年齡", "歲", "age", "old" } },
+            { "Birthday", new[] { "生日", "birth", "birthday" } },
+            { "Height", new[] { "身高", "height" } },
+            { "Weight", new[] { "體重", "減重", "weight", "lose weight" } },
+            { "BMI", new[] { "BMI", "bmi", "body mass index" } },
+            { "Username", new[] { "名字", "個人", "帳號", "username", "profile", "account" ,"name"} }
+        };
+
+            if (profile != null)
             {
-                prompt += $" 我的身高是 {profile.Height.Value} 公分，體重是 {profile.Weight.Value} 公斤。";
+                foreach (var entry in keywordMap)
+                {
+                    string key = entry.Key;
+                    string[] keywords = entry.Value;
+
+                    if (keywords.Any(k => lowerPrompt.Contains(k)))
+                    {
+                        switch (key)
+                        {
+                            case "Age":
+                                if (profile.Age.HasValue)
+                                    prompt += $" 使用者今年 {profile.Age.Value} 歲。";
+                                break;
+                            case "Birthday":
+                                if (profile.Birthday.HasValue)
+                                    prompt += $" 使用者的生日是 {profile.Birthday.Value:yyyy 年 M 月 d 日}。";
+                                break;
+                            case "Height":
+                                if (profile.Height.HasValue)
+                                    prompt += $" 使用者的身高是 {profile.Height.Value} 公分。";
+                                break;
+                            case "Weight":
+                                if (profile.Weight.HasValue)
+                                    prompt += $" 使用者的體重是 {profile.Weight.Value} 公斤。";
+                                break;
+                            case "BMI":
+                                if (profile.BMI.HasValue)
+                                    prompt += $" 使用者的 BMI 是 {Math.Round(profile.BMI.Value, 1)}。";
+                                break;
+                            case "Username":
+                                if (!string.IsNullOrEmpty(profile.username))
+                                    prompt += $" 使用者名稱是 {profile.username}。";
+                                break;
+                        }
+                    }
+                }
             }
-            else
+
+            //飲食紀錄
+            if (nutritionRecords != null && nutritionRecords.Any())
             {
-                prompt += "（無法從資料庫取得身高與體重資訊，請手動提供。）";
+                // 若問題與飲食、餐點、熱量等相關，或是 Prompt3（飲食調整）時自動觸發
+                if (lowerPrompt.Contains("飲食") || lowerPrompt.Contains("食物") ||
+                    lowerPrompt.Contains("卡路里") || lowerPrompt.Contains("營養") ||
+                    lowerPrompt.Contains("調整飲食"))
+                {
+                    // 取最近三天的紀錄
+                    var validRecords = nutritionRecords
+                        .Where(r => DateTime.TryParse(r.day, out _))
+                        .OrderByDescending(r => DateTime.Parse(r.day))
+                        .Take(3)
+                        .ToList();
+
+                    if (validRecords.Any())
+                    {
+                        var groupedByDay = validRecords
+                            .GroupBy(r => DateTime.Parse(r.day).Date)
+                            .OrderByDescending(g => g.Key);
+
+                        prompt += " 以下是使用者最近三天的飲食紀錄：";
+
+                        foreach (var group in groupedByDay)
+                        {
+                            prompt += $"\n {group.Key:yyyy/MM/dd}：";
+
+                            foreach (var record in group)
+                            {
+                                prompt += $" 食物：{record.food_name}";
+                                if (record.Weight.HasValue) prompt += $" {record.Weight.Value} g";
+                                if (record.calories.HasValue) prompt += $", 熱量 {record.calories.Value} kcal";
+                                if (record.carbohydrates.HasValue) prompt += $", 碳水 {record.carbohydrates.Value} g";
+                                if (record.fat.HasValue) prompt += $", 脂肪 {record.fat.Value} g";
+                                if (record.protein.HasValue) prompt += $", 蛋白質 {record.protein.Value} g";
+                                prompt += "；";
+                            }
+                        }
+
+                        prompt += " 根據上述飲食內容，請提供具體的營養與飲食調整建議。";
+                    }
+                }
             }
+            return $"{prompt} 請用純文字回答，取小數後 1 位，不要使用項目符號或特殊符號。";
         }
-        return $"{prompt} 取小數後1位，用純文字回答，不要使用星號、項目符號或特殊符號。";
+        catch (Exception ex)
+        {
+            return $"(系統提示：抓取資料時發生錯誤：{ex.Message})";
+        }
     }
 
+
+
     //按鈕設定
-    private void Button(bool enabled)
+    private void SetButtonsEnabled(bool enabled)
     {
-        SendButton.IsEnabled = enabled;
-        Prompt1Button.IsEnabled = enabled;
-        Prompt2Button.IsEnabled = enabled;
-        Prompt3Button.IsEnabled = enabled;
-        Prompt4Button.IsEnabled = enabled;
+        foreach (var button in new[] { SendButton, Prompt1Button, Prompt2Button, Prompt3Button, Prompt4Button })
+        {
+            button.IsEnabled = enabled;
+        }
     }
 
     //提示按鈕1
@@ -70,7 +185,7 @@ public partial class AIAssistant : ContentPage
     {
         var msg = "怎麼規劃一週的健康便當菜單？";
         AddUserMessage(msg);
-        Button(false);
+        SetButtonsEnabled(false);
         _=SimulateAIResponse(msg);
     }
 
@@ -79,7 +194,7 @@ public partial class AIAssistant : ContentPage
     {
         var msg = "今日健康餐？";
         AddUserMessage(msg);
-        Button(false);
+        SetButtonsEnabled(false);
         var msg1="你現在是一位營養師，請幫我設計一份健康的早餐、午餐、晚餐建議，包含主食、蛋白質、蔬菜和水果。";
         _ = SimulateAIResponse(msg1);
     }
@@ -89,7 +204,7 @@ public partial class AIAssistant : ContentPage
     {
         var msg = "我該怎麼調整飲食？";
         AddUserMessage(msg);
-        Button(false);
+        SetButtonsEnabled(false);
         _ = SimulateAIResponse(msg);
     }
 
@@ -98,7 +213,7 @@ public partial class AIAssistant : ContentPage
     {
         var msg = "減重的人該怎麼吃才不會復胖？";
         AddUserMessage(msg);
-        Button(false);
+        SetButtonsEnabled(false);
         _ = SimulateAIResponse(msg);
     }
 
@@ -108,7 +223,7 @@ public partial class AIAssistant : ContentPage
         string message = InputEntry.Text?.Trim();
         if (!string.IsNullOrEmpty(message))
         {
-            Button(false);
+            SetButtonsEnabled(false);
             AddUserMessage(message);
             InputEntry.Text = string.Empty;
             await SimulateAIResponse(message);
@@ -181,14 +296,16 @@ public partial class AIAssistant : ContentPage
             var gemini = new AnalyzeImageContent();
             string finalPrompt = await CleanPrompt(userMessage);
             string aiResponse = await gemini.AIAss(finalPrompt);
-            Button(true);
+            SetButtonsEnabled(true);
 
-            ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1); // 移除"思考中"
+            if (ChatStack.Children.Count > 0)
+                ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1); // 移除"思考中"
             AddAIMessage(aiResponse);
         }
         catch (Exception ex)
         {
-            ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1);
+            if (ChatStack.Children.Count > 0)
+                ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1);
             AddAIMessage($"發生錯誤：{ex.Message}");
         }
     }
