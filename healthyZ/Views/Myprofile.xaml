@@ -5,35 +5,59 @@
              Title="個人資料"
              Shell.TitleColor="#5A7C78"
              BackgroundColor="#D5E8D4">
-    <VerticalStackLayout Spacing="28" Padding="9,30,0,0" HorizontalOptions="Start">
-        <HorizontalStackLayout>
-            <Label Text="使用者名稱：" TextColor="Black"/>
-            <Label x:Name="usernameLabel" TextColor="#48786F"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="帳號：" TextColor="Black"/>
-            <Label x:Name="accountLabel" TextColor="#48786F"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="生日：" TextColor="Black"/>
-            <Label x:Name="birthdayLabel" TextColor="#48786F"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="年齡：" TextColor="Black"/>
-            <Label x:Name="ageLabel" TextColor="#48786F"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="身高（cm）：" TextColor="Black" VerticalTextAlignment="Center"/>
-            <Entry x:Name="heightEntry" WidthRequest="80" HeightRequest="40" Keyboard="Numeric" TextColor="#48786F" VerticalOptions="Center"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="體重（kg）：" TextColor="Black" VerticalTextAlignment="Center"/>
-            <Entry x:Name="weightEntry" WidthRequest="80" HeightRequest="40" Keyboard="Numeric" TextColor="#48786F" VerticalOptions="Center"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="BMI：" TextColor="Black" />
-            <Label x:Name="bmiLabel"/>
-        </HorizontalStackLayout>
-        <Button Text="儲存" Clicked="OnSaveClicked" BackgroundColor="#67AB9F" TextColor="White" WidthRequest="100"/>
-    </VerticalStackLayout>
+    <!-- 導覽列右側的儲存按鈕 -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="儲存"
+                 Clicked="OnSaveClicked"
+                 Order="Primary"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <!-- 可滾動內容 -->
+    <ScrollView>
+        <VerticalStackLayout Spacing="28" Padding="10,20,10,0" HorizontalOptions="Fill">
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="23" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="使用者名稱：" TextColor="Black"/>
+                    <Label x:Name="usernameLabel" TextColor="#48786F"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="23" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="帳號：" TextColor="Black"/>
+                    <Label x:Name="accountLabel" TextColor="#48786F"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="23" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="生日：" TextColor="Black"/>
+                    <Label x:Name="birthdayLabel" TextColor="#48786F"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="23" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="年齡：" TextColor="Black"/>
+                    <Label x:Name="ageLabel" TextColor="#48786F"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="10" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="身高（cm）：" TextColor="Black" VerticalTextAlignment="Center"/>
+                    <Entry x:Name="heightEntry" WidthRequest="80" HeightRequest="40" Keyboard="Numeric" TextColor="#48786F" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="10" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="體重（kg）：" TextColor="Black" VerticalTextAlignment="Center"/>
+                    <Entry x:Name="weightEntry" WidthRequest="80" HeightRequest="40" Keyboard="Numeric" TextColor="#48786F" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 50" BackgroundColor="#80FFFFFF" Padding="23" HorizontalOptions="Fill">
+                <HorizontalStackLayout>
+                    <Label Text="BMI：" TextColor="Black" />
+                    <Label x:Name="bmiLabel"/>
+                </HorizontalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
