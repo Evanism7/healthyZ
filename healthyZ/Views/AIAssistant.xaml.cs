@@ -40,19 +40,33 @@ public partial class AIAssistant : ContentPage
     {
         string prompt = basePrompt;
 
-        // 加入使用者基本資料（身高體重）
-        if (basePrompt.Contains("減重") || basePrompt.Contains("體重") || basePrompt.Contains("身高") || basePrompt.Contains("BMI"))
-        {
-            var profile = await GetUserProfileFromDatabase();
+        // 從資料庫抓取使用者資料
+        var profile = await GetUserProfileFromDatabase();
 
-            if (profile != null && profile.Height.HasValue && profile.Weight.HasValue)
-            {
-                prompt += $" 我的身高是 {profile.Height.Value} 公分，體重是 {profile.Weight.Value} 公斤。";
-            }
-            else
-            {
-                prompt += "（無法從資料庫取得身高與體重資訊，請手動提供。）";
-            }
+        if (profile != null)
+        {
+            // 組合完整使用者資訊
+            string userInfo = "以下是使用者的健康基本資料：";
+
+            if (!string.IsNullOrEmpty(profile.username))
+                userInfo += $" 名稱為 {profile.username}。";
+
+            if (profile.Birthday.HasValue)
+                userInfo += $" 生日是 {profile.Birthday.Value:yyyy年MM月dd日}。";
+
+            if (profile.Age.HasValue)
+                userInfo += $" 年齡 {profile.Age.Value} 歲。";
+
+            if (profile.Height.HasValue)
+                userInfo += $" 身高 {profile.Height.Value} 公分。";
+
+            if (profile.Weight.HasValue)
+                userInfo += $" 體重 {profile.Weight.Value} 公斤。";
+
+            if (profile.BMI.HasValue)
+                userInfo += $" BMI 為 {profile.BMI.Value:F1}。";
+
+            prompt += $" {userInfo}";
         }
 
         // 加入最近飲食資料摘要
@@ -94,7 +108,7 @@ public partial class AIAssistant : ContentPage
         var summaryText = string.Join("；", foodSummaries);
 
         // 建立更具分析性的摘要，加入平均值
-        return $"這是我最近的飲食紀錄：{summaryText}。綜合來看，我過去幾天的平均攝取量為：熱量約 {avgCalories:F0} 大卡，蛋白質約 {avgProtein:F0} 公克，碳水化合物約 {avgCarbs:F0} 公克，脂肪約 {avgFat:F0} 公克。";
+        return $"這是我最近的飲食紀錄：{summaryText}。綜合來看，我過去幾天的平均攝取量為：熱量約 {avgCalories:F0} 大卡，蛋白質約 {avgProtein:F0} 公克，碳水化合物約 {avgCarbs:F0} 公克，脂肪約 {avgFat:F0} 公克，請你以營養師的身分回答我的問題。";
     }
     
 
@@ -121,11 +135,10 @@ public partial class AIAssistant : ContentPage
     //提示按鈕2
     private void Prompt2_Clicked(object sender, EventArgs e)
     {
-        var msg = "今日健康餐？";
+        var msg = "推薦我明天可以吃哪些健康餐？";
         AddUserMessage(msg);
         Button(false);
-        var msg1="你現在是一位營養師，請幫我設計一份健康的早餐、午餐、晚餐建議，包含主食、蛋白質、蔬菜和水果。";
-        _ = SimulateAIResponse(msg1);
+        _ = SimulateAIResponse(msg);
     }
 
     //提示按鈕3
