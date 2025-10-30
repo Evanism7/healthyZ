@@ -29,7 +29,7 @@
                 </Border>
                 <!-- 其他控制項 -->
             </VerticalStackLayout>
-            <HorizontalStackLayout Margin="0,20,0,0" HorizontalOptions="Center" Spacing="35">
+            <HorizontalStackLayout Margin="0,40,0,0" HorizontalOptions="Center" Spacing="45">
                 <ImageButton Source="image.png"   
                  Clicked="OnPickPhotoClicked"
                  WidthRequest="50"
@@ -40,13 +40,13 @@
                 <ImageButton Source="camera.png"
                  Clicked="OnTakePhotoClicked"
                  CornerRadius="40"
-                 WidthRequest="80"
-                 HeightRequest="80"
+                 WidthRequest="50"
+                 HeightRequest="50"
                  VerticalOptions="End"
                  BackgroundColor="Transparent"/>
-                <ImageButton Source="send.png"
+                <ImageButton Source="check.png"
                  Clicked="OnNextstepClicked"
-                 WidthRequest="10"
+                 WidthRequest="50"
                  HeightRequest="10"
                  CornerRadius="25"
                  VerticalOptions="End"
