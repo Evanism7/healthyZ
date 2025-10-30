@@ -7,25 +7,41 @@
              BackgroundColor="#D5E8D4">
     <VerticalStackLayout>
         <!-- 轉盤區域（建議放最上方） -->
-        <Frame BackgroundColor="White"
-       BorderColor="#67AB9F"
-       CornerRadius="150"
-       Padding="0"
-       HasShadow="False"
-       HorizontalOptions="Center"
-       VerticalOptions="Center"
-       HeightRequest="300"
-       WidthRequest="300">
-            <GraphicsView x:Name="WheelView"
-              HeightRequest="300"
-              WidthRequest="300"
-              HorizontalOptions="Center"
-              VerticalOptions="Center">
-                <GraphicsView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnSpinClicked"/>
-                </GraphicsView.GestureRecognizers>
-            </GraphicsView>
-        </Frame>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="300" WidthRequest="300">
+            <Frame BackgroundColor="White"
+           BorderColor="#67AB9F"
+           CornerRadius="150"
+           Padding="0"
+           HasShadow="False"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           HeightRequest="300"
+           WidthRequest="300"
+           AbsoluteLayout.LayoutBounds="0.5,0.5,300,300"
+           AbsoluteLayout.LayoutFlags="PositionProportional">
+                <GraphicsView x:Name="WheelView"
+                      HeightRequest="300"
+                      WidthRequest="300"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center">
+                    <GraphicsView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSpinClicked"/>
+                    </GraphicsView.GestureRecognizers>
+                </GraphicsView>
+            </Frame>
+
+            <!-- 覆蓋在圓盤上的文字框 -->
+            <Label Text="請點此處"
+           BackgroundColor="#80FFFFFF"
+           TextColor="#80000000"
+           HorizontalTextAlignment="Center"
+           VerticalTextAlignment="Center"
+           FontSize="20"
+           WidthRequest="90"
+           HeightRequest="40"
+           AbsoluteLayout.LayoutBounds="0.5,0.5,100,40"
+           AbsoluteLayout.LayoutFlags="PositionProportional" />
+        </AbsoluteLayout>
         <!-- 可滾動多行輸入區與按鈕 -->
         <ScrollView Orientation="Horizontal"
      HorizontalOptions="Center"
@@ -34,26 +50,26 @@
             <HorizontalStackLayout>
                 <Border Stroke="#67AB9F" StrokeThickness="1" StrokeShape="RoundRectangle 12" Margin="0,30,0,0">
                     <Editor x:Name="FoodEditor"
-        Placeholder="每行輸入一種食物"
-        WidthRequest="200"
-        BackgroundColor="White"
-        AutoSize="TextChanges"
-        HeightRequest="250"
-        HorizontalOptions="Center"
-        TextColor="Black"/>
+                    Placeholder="每行輸入一種食物"
+                    WidthRequest="200"
+                    BackgroundColor="White"
+                    AutoSize="TextChanges"
+                    HeightRequest="220"
+                    HorizontalOptions="Center"
+                    TextColor="Black"/>
                 </Border>
                 <VerticalStackLayout Spacing="10" Margin="20,0,0,110" VerticalOptions="Center">
                     <Button Text="新增"
-                Clicked="OnAddClicked"
-                BackgroundColor="#9AC7BF"
-                TextColor="#48786F"
-                WidthRequest="70"
-                Margin="0,0,0,10"/>
+                    Clicked="OnAddClicked"
+                    BackgroundColor="#9AC7BF"
+                    TextColor="#48786F"
+                    WidthRequest="70"
+                    Margin="0,30,0,10"/>
                     <Button Text="重置"
-                Clicked="OnResetClicked"
-                BackgroundColor="#F27272"
-                TextColor="#48786F"
-                WidthRequest="70"/>
+                    Clicked="OnResetClicked"
+                    BackgroundColor="#F27272"
+                    TextColor="#48786F"
+                    WidthRequest="70"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
         </ScrollView>
