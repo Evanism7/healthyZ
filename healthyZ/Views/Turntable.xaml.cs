@@ -139,7 +139,11 @@ public partial class Turntable : ContentPage
                             .Where(s => !string.IsNullOrEmpty(s));
             foreach (var item in items)
             {
-                _segments.Add(item);
+                // 檢查是否已存在於 _segments 中
+                if (!_segments.Contains(item))
+                {
+                    _segments.Add(item);
+                }
             }
             WheelView.Drawable = new WheelDrawable(_segments, _colors, () => _angle);
             WheelView.Invalidate();

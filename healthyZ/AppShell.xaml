@@ -34,7 +34,7 @@
         <ShellContent ContentTemplate="{DataTemplate views:Turntable}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="個人檔案" Icon="iconmyprofile.png" Route="Myprofile">
+    <FlyoutItem Title="個人資料" Icon="iconmyprofile.png" Route="Myprofile">
         <ShellContent ContentTemplate="{DataTemplate views:Myprofile}" />
     </FlyoutItem>
 
