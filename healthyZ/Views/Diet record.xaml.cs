@@ -1,5 +1,4 @@
-using healthyZ.Models;
-using Microcharts;
+ï»¿using healthyZ.Models;
 using Supabase;
 using Syncfusion.Maui.Charts;
 using System.Collections.ObjectModel;
@@ -9,35 +8,44 @@ namespace healthy.Views
     public partial class Diet_record : ContentPage
     {
         private Supabase.Client _client;
-        private ObservableCollection<NutritionResult> nutritionResults = new ObservableCollection<NutritionResult>();
+        private ObservableCollection<NutritionResult> allRecords = new ObservableCollection<NutritionResult>(); // æ‰€æœ‰ç´€éŒ„
+        private ObservableCollection<NutritionResult> displayedRecords = new ObservableCollection<NutritionResult>(); // ç¯©é¸å¾Œé¡¯ç¤ºç”¨
 
         public ObservableCollection<NutritionInfo> NutritionData { get; set; } = new ObservableCollection<NutritionInfo>();
 
         public Diet_record()
         {
             InitializeComponent();
-            notesListView.ItemsSource = nutritionResults;
 
-            _client = new Supabase.Client("https://zgajpjoewcbijoplqnti.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYWpwam9ld2NiaWpvcGxxbnRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MjAwMTMsImV4cCI6MjA2Njk5NjAxM30.RIuoFbPdEKAYrn4lw7Ei-VkoKx44dnnk9pdP-G8GX3g");
-            BindingContext = this; // ½T«O Pie Chart ¯à¸j¨ì NutritionData
+            notesCollectionView.ItemsSource = displayedRecords;
+            BindingContext = this;
+
+            _client = new Supabase.Client(
+                "https://zgajpjoewcbijoplqnti.supabase.co",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYWpwam9ld2NiaWpvcGxxbnRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MjAwMTMsImV4cCI6MjA2Njk5NjAxM30.RIuoFbPdEKAYrn4lw7Ei-VkoKx44dnnk9pdP-G8GX3g"
+            );
+
+            // é è¨­æ—¥æœŸç¯„åœ
+            StartDatePicker.Date = DateTime.Now.AddDays(-14);
+            EndDatePicker.Date = DateTime.Now;
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await LoadFoodRecords();
+            await LoadAllRecords();
+            await AnalyzeRange(StartDatePicker.Date, EndDatePicker.Date); // é è¨­å…©é€±å…§
         }
 
-        private async Task LoadFoodRecords()
+        private async Task LoadAllRecords()
         {
-           
             try
             {
                 var accountId = Preferences.Get("account_id", string.Empty);
 
                 if (string.IsNullOrEmpty(accountId))
                 {
-                    await DisplayAlert("¿ù»~", "©|¥¼µn¤J", "½T©w");
+                    await DisplayAlert("éŒ¯èª¤", "å°šæœªç™»å…¥", "ç¢ºå®š");
                     return;
                 }
 
@@ -46,63 +54,70 @@ namespace healthy.Views
                     .Where(x => x.account_id == accountId)
                     .Get();
 
+                allRecords.Clear();
+
                 if (response.Models != null)
                 {
-                    nutritionResults.Clear();
                     foreach (var item in response.Models)
                     {
-                        nutritionResults.Add(item);
+                        // å˜—è©¦è§£ææ—¥æœŸæ ¼å¼
+                        if (DateTime.TryParse(item.day, out DateTime parsedDate))
+                            item.day = parsedDate.ToString("yyyy-MM-dd");
+                        else
+                            item.day = "æœªçŸ¥æ—¥æœŸ";
+
+                        allRecords.Add(item);
                     }
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("¿ù»~", $"¸ü¤J­¹ª«¬ö¿ı¥¢±Ñ¡G{ex.Message}", "½T©w");
+                await DisplayAlert("éŒ¯èª¤", $"è¼‰å…¥é£Ÿç‰©ç´€éŒ„å¤±æ•—ï¼š{ex.Message}", "ç¢ºå®š");
             }
-        }
-
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item is NutritionResult selectedItem)
-            {
-                DisplayAlert("­¹ª«¸ê°T",
-                    $"¦WºÙ: {selectedItem.food_name}\n¼ö¶q: {selectedItem.calories} kcal",
-                    "Ãö³¬");
-            }
-
-            ((ListView)sender).SelectedItem = null;
         }
 
         private async void OnAnalyzeClicked(object sender, EventArgs e)
         {
-            DateTime start = StartDatePicker.Date;
-            DateTime end = EndDatePicker.Date;
+            await AnalyzeRange(StartDatePicker.Date, EndDatePicker.Date);
+        }
 
-            var filtered = nutritionResults
-                .Where(n => DateTime.TryParse(n.day, out DateTime d) && d >= start && d <= end)
+        private async Task AnalyzeRange(DateTime start, DateTime end)
+        {
+            // ç¯©é¸å…©å€‹æ—¥æœŸä¹‹é–“çš„è³‡æ–™
+            var filtered = allRecords
+                .Where(n => DateTime.TryParse(n.day, out DateTime d) &&
+                            d.Date >= start.Date && d.Date <= end.Date)
+                .OrderByDescending(n => DateTime.Parse(n.day))
                 .ToList();
 
+            // æ›´æ–°é¡¯ç¤ºç”¨è³‡æ–™
+            displayedRecords.Clear();
+            foreach (var record in filtered)
+                displayedRecords.Add(record);
+
+            // æ²’æœ‰è³‡æ–™çš„æƒ…æ³
             if (!filtered.Any())
             {
-                await DisplayAlert("´£¥Ü", "¦¹´Á¶¡¤ºµL¬ö¿ı", "½T©w");
+                await DisplayAlert("æç¤º", "æ­¤æœŸé–“å…§ç„¡ç´€éŒ„", "ç¢ºå®š");
+                TotalCaloriesLabel.Text = "ç¸½ç†±é‡: 0 kcal";
+                NutritionData.Clear();
                 return;
             }
 
-            double totalCalories = (double)filtered.Sum(n => n.calories);
-            double totalCarbs = (double)filtered.Sum(n => n.carbohydrates);
-            double totalProtein = (double)filtered.Sum(n => n.protein);
-            double totalFat = (double)filtered.Sum(n => n.fat);
+            // çµ±è¨ˆåˆ†æ
+            double totalCalories = filtered.Sum(n => (double)n.calories);
+            double totalCarbs = filtered.Sum(n => (double)n.carbohydrates);
+            double totalProtein = filtered.Sum(n => (double)n.protein);
+            double totalFat = filtered.Sum(n => (double)n.fat);
 
-            // §ó·s Label
-            TotalCaloriesLabel.Text = $"Á`¼ö¶q: {totalCalories} kcal";
+            // æ›´æ–°é¡¯ç¤º
+            TotalCaloriesLabel.Text = $"ç¸½ç†±é‡: {totalCalories:F0} kcal";
 
-            // ¥uµ¹¤T¤jÀç¾i¯Àµe¹Ï
             NutritionData.Clear();
-            NutritionData.Add(new NutritionInfo { Category = "ºÒ¤ô¤Æ¦Xª« (g)", Value = totalCarbs });
-            NutritionData.Add(new NutritionInfo { Category = "³J¥Õ½è (g)", Value = totalProtein });
-            NutritionData.Add(new NutritionInfo { Category = "¯×ªÕ (g)", Value = totalFat });
+            NutritionData.Add(new NutritionInfo { Category = "ç¢³æ°´åŒ–åˆç‰© (g)", Value = totalCarbs });
+            NutritionData.Add(new NutritionInfo { Category = "è›‹ç™½è³ª (g)", Value = totalProtein });
+            NutritionData.Add(new NutritionInfo { Category = "è„‚è‚ª (g)", Value = totalFat });
         }
-
     }
 
     public class NutritionInfo
