@@ -11,7 +11,7 @@ namespace healthyZ.AI
     internal class AnalyzeImage
     {
         // 登入Google Cloud取得 API Key與API URL
-        private const string ApiKey = "AIzaSyBKDRstpZpbKct61EjYK8_NOG517UbDdl8";
+        private const string ApiKey = "AIzaSyD35LuDSJ26kdu4KTd70z3Cu8gnWqW04e4";
         private const string ApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
         // 是透過Http呼叫Gemini API, 需要HttpClient執行呼叫任務
