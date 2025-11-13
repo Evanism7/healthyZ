@@ -15,6 +15,9 @@ public partial class AIAssistant : ContentPage
         // 初始化 Supabase 連線
         SupabaseClient supabaseClient = new SupabaseClient();
         _client = supabaseClient.GetClient();
+
+        // 畫面載入時自動載入歷史聊天紀錄
+        _ = LoadPreviousChats();
     }
 
     //抓取使用者資訊
@@ -167,6 +170,7 @@ public partial class AIAssistant : ContentPage
         {
             Button(false);
             AddUserMessage(message);
+            await SaveChatMessage("user", message);  //儲存使用者訊息
             InputEntry.Text = string.Empty;
             await SimulateAIResponse(message);
         }
@@ -198,6 +202,9 @@ public partial class AIAssistant : ContentPage
 
         ChatStack.Children.Add(userBubble);
         ScrollToBottom();
+
+        //把使用者訊息也存入資料庫
+        _ = SaveChatToDatabase("user", text);
     }
 
     // AI消息氣泡
@@ -242,6 +249,9 @@ public partial class AIAssistant : ContentPage
 
             ChatStack.Children.RemoveAt(ChatStack.Children.Count - 1); // 移除"思考中"
             AddAIMessage(aiResponse);
+            await SaveChatMessage("ai", aiResponse);   //儲存 AI 回覆
+
+            Button(true);
         }
         catch (Exception ex)
         {
@@ -259,5 +269,77 @@ public partial class AIAssistant : ContentPage
             await ChatScroll.ScrollToAsync(ChatStack, ScrollToPosition.End, true);
         });
     }
+
+    // 儲存聊天紀錄到 Supabase
+    private async Task SaveChatToDatabase(string role, string message)
+    {
+        try
+        {
+            var accountId = Preferences.Get("account_id", null);
+            if (string.IsNullOrEmpty(accountId))
+                return;
+
+            var chatRecord = new chat_history
+            {
+                accountId = accountId,
+                role = role,
+                message = message,
+                createdAt = DateTime.UtcNow
+            };
+
+            await _client.From<chat_history>().Insert(chatRecord);
+        }
+        catch (Exception ex)
+        {
+            AddAIMessage($"發生錯誤：{ex.Message}");
+        }
+    }
+
+
+    // 儲存訊息到 Supabase
+    private async Task SaveChatMessage(string role, string message)
+    {
+        var accountId = Preferences.Get("account_id", null);
+        if (string.IsNullOrEmpty(accountId)) return;
+
+        var chatMessage = new chat_history
+        {
+            accountId = accountId,
+            role = role,
+            message = message,
+            createdAt = DateTime.Now
+        };
+
+        await _client.From<chat_history>().Insert(chatMessage);
+    }
+
+    // 讀取使用者的所有聊天紀錄
+    private async Task<List<chat_history>> LoadChatHistory()
+    {
+        var accountId = Preferences.Get("account_id", null);
+        if (string.IsNullOrEmpty(accountId)) return new List<chat_history>();
+
+        var result = await _client
+            .From<chat_history>()
+            .Where(x => x.accountId == accountId)
+            .Order(x => x.createdAt, Supabase.Postgrest.Constants.Ordering.Ascending)
+            .Get();
+
+        return result.Models;
+    }
+
+    // 載入歷史聊天紀錄
+    private async Task LoadPreviousChats()
+    {
+        var history = await LoadChatHistory();
+        foreach (var chat in history)
+        {
+            if (chat.role == "user")
+                AddUserMessage(chat.message);
+            else if (chat.role == "ai")
+                AddAIMessage(chat.message);
+        }
+    }
+
 
 }
