@@ -9,7 +9,7 @@ namespace healthy.AI
     internal class AnalyzeImageContent
     {
         // 登入Google Cloud取得 API Key與API URL
-        private const string ApiKey = "AIzaSyBKNfqsSUulxeftIvwL6DhYAcTLXFR98iM";
+        private const string ApiKey = "AIzaSyD35LuDSJ26kdu4KTd70z3Cu8gnWqW04e4";
         
 
         private readonly HttpClient _httpClient = new();

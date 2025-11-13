@@ -126,7 +126,7 @@ public partial class AIAssistant : ContentPage
     //提示按鈕1
     private void Prompt1_Clicked(object sender, EventArgs e)
     {
-        var msg = "怎麼規劃一週的健康便當菜單？";
+        var msg = "幫我規劃一週的健康便當菜單？";
         AddUserMessage(msg);
         Button(false);
         _=SimulateAIResponse(msg);
@@ -153,7 +153,7 @@ public partial class AIAssistant : ContentPage
     //提示按鈕4
     private void Prompt4_Clicked(object sender, EventArgs e)
     {
-        var msg = "減重的人該怎麼吃才不會復胖？";
+        var msg = "我該怎麼吃才不會復胖？";
         AddUserMessage(msg);
         Button(false);
         _ = SimulateAIResponse(msg);
