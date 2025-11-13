@@ -1,20 +1,23 @@
-using healthyZ.AI;
+ï»¿using healthyZ.AI;
 using healthyZ.Models;
-using Newtonsoft.Json;
-using Supabase.Gotrue;
-using System.Text.Json; // ½Ğ½T»{¦³ using
-using System.Text.RegularExpressions;
 using Microcharts;
+using Newtonsoft.Json;
 using SkiaSharp;
+using Supabase.Gotrue;
+using Syncfusion.Maui.Charts; // âœ… æ–°å¢
+using System.Text.Json; // è«‹ç¢ºèªæœ‰ using
+using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 namespace healthyZ.Views;
 
 [QueryProperty(nameof(NutritionResult), "analysisResult")]
 
 public partial class NutritionAI : ContentPage
 {
-    private Supabase.Client _client;    // Supabase¸ê®Æ®w³s½uÅÜ¼Æ
+    private Supabase.Client _client;    // Supabaseè³‡æ–™åº«é€£ç·šè®Šæ•¸
     //[QueryProperty(nameof(AnalysisResult), "analysisResult")]
 
+    public ObservableCollection<NutritionItem> NutritionData { get; set; } = new();
     private NutritionResult aiResult;
 
     public NutritionAI(NutritionResult result)
@@ -22,7 +25,7 @@ public partial class NutritionAI : ContentPage
         InitializeComponent();
 
         aiResult = result;
-
+        BindingContext = this;
         SetNutritionResult();
 
         SupabaseClient supabaseClient = new SupabaseClient();
@@ -33,66 +36,53 @@ public partial class NutritionAI : ContentPage
     private async void SetNutritionResult()
     {
 
-        lblCarbohydrate.Text = aiResult.carbohydrates != null ? aiResult.carbohydrates.ToString() : "µL";
-        lblCalories.Text = aiResult.calories != null ? aiResult.calories.ToString() : "µL";
-        lblFat.Text = aiResult.fat != null ? aiResult.fat.ToString() : "µL";
-        lblProtein.Text = aiResult.protein != null ? aiResult.protein.ToString() : "µL";
-        lblWeight.Text = aiResult.Weight != null ? aiResult.Weight.ToString() : "µL";
-        lblFoodName.Text = aiResult.food_name ?? "¥¼ª¾";
+        lblCarbohydrate.Text = aiResult.carbohydrates != null ? aiResult.carbohydrates.ToString() : "ç„¡";
+        lblCalories.Text = aiResult.calories != null ? aiResult.calories.ToString() : "ç„¡";
+        lblFat.Text = aiResult.fat != null ? aiResult.fat.ToString() : "ç„¡";
+        lblProtein.Text = aiResult.protein != null ? aiResult.protein.ToString() : "ç„¡";
+        lblWeight.Text = aiResult.Weight != null ? aiResult.Weight.ToString() : "ç„¡";
+        lblFoodName.Text = aiResult.food_name ?? "æœªçŸ¥";
         lblDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
         aiResult.time = DateTime.Now.TimeOfDay;
 
-        NutritionChart.Chart = new PieChart
-        {
-            Entries = new List<ChartEntry>
+        NutritionData.Clear();
+        NutritionData.Add(new NutritionItem { Name = "è„‚è‚ª", Value = (double)(aiResult.fat ?? 0) });
+        NutritionData.Add(new NutritionItem { Name = "ç¢³æ°´åŒ–åˆç‰©", Value = (double)(aiResult.carbohydrates ?? 0) });
+        NutritionData.Add(new NutritionItem { Name = "è›‹ç™½è³ª", Value = (double)(aiResult.protein ?? 0) });
+        NutritionPieSeries.ItemsSource = NutritionData;
+        foreach (var item in NutritionData)
+            System.Diagnostics.Debug.WriteLine($"{item.Name} = {item.Value}");
 
-           {
-                new ChartEntry((float)(aiResult.fat ?? 0))
-            {
-                Label = "Fat",
-                ValueLabel = (aiResult.fat ?? 0).ToString(),
-                Color = SKColor.Parse("#F44336")  // ¬õ¦â
-            },
-            new ChartEntry((float)(aiResult.carbohydrates ?? 0))
-            {
-                Label = "Carbohydrate",
-                ValueLabel = (aiResult.carbohydrates ?? 0).ToString(),
-                Color = SKColor.Parse("#2196F3")  // ÂÅ¦â
-            },
-            new ChartEntry((float)(aiResult.protein ?? 0))
-            {
-                Label = "Protein",
-                ValueLabel = (aiResult.protein ?? 0).ToString(),
-                Color = SKColor.Parse("#4CAF50")  // ºñ¦â
-            }
-        },
-            LabelTextSize = 14,
-            BackgroundColor = SKColors.White
-        };
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            OnPropertyChanged(nameof(NutritionData));
+        });
+
     }
-    //¨ú®ø«ö¶s
+
+    //å–æ¶ˆæŒ‰éˆ•
     private void OnDeleteClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("Photograph");
     }
-    //½T»{«ö¶s
+    //ç¢ºèªæŒ‰éˆ•
     private async void OnConfirmClicked(object sender, EventArgs e)
     {
         if (aiResult != null)
         {
-            // ¨ú±o¥Ø«eµn¤J¨Ï¥ÎªÌªº account_id
+            // å–å¾—ç›®å‰ç™»å…¥ä½¿ç”¨è€…çš„ account_id
             var accountId = Preferences.Get("account_id", null);
             if (accountId == null)
             {
-                await DisplayAlert("¿ù»~", "©|¥¼µn¤J¡A½Ğ¥ıµn¤J±b¸¹", "½T©w");
+                await DisplayAlert("éŒ¯èª¤", "å°šæœªç™»å…¥ï¼Œè«‹å…ˆç™»å…¥å¸³è™Ÿ", "ç¢ºå®š");
                 return;
             }
 
             aiResult.account_id = accountId;
 
-            // ¸É»ôÄæ¦ì
+            // è£œé½Šæ¬„ä½
             aiResult.day = lblDate.Text;
-            // ½T«O®É¶¡¦³³Q°O¿ı
+            // ç¢ºä¿æ™‚é–“æœ‰è¢«è¨˜éŒ„
             if (aiResult.time == null)
                 aiResult.time = DateTime.Now.TimeOfDay;
 
@@ -102,13 +92,18 @@ public partial class NutritionAI : ContentPage
 
             if (response.Models.Count > 0)
             {
-                await DisplayAlert("¦¨¥\", "¸ê®Æ¤w¤W¶Ç¦Ü Supabase", "½T©w");
+                await DisplayAlert("æˆåŠŸ", "è³‡æ–™å·²ä¸Šå‚³è‡³ Supabase", "ç¢ºå®š");
                 await Navigation.PopAsync();
             }
             else
             {
-                await DisplayAlert("¥¢±Ñ", "¸ê®Æ¤W¶Ç¥¢±Ñ", "½T©w");
+                await DisplayAlert("å¤±æ•—", "è³‡æ–™ä¸Šå‚³å¤±æ•—", "ç¢ºå®š");
             }
         }
     }
+}
+public class NutritionItem
+{
+    public string Name { get; set; }
+    public double Value { get; set; }
 }

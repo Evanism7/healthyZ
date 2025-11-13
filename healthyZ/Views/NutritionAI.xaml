@@ -1,62 +1,152 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:Class="healthyZ.Views.NutritionAI"
-             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
-             Title="AI 分析結果" BackgroundColor="#D5E8D4">
+             Title="AI 分析結果"
+             BackgroundColor="#F4FBF4">
+
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
-            <!-- 卡路里 -->
-            <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
-                <Label Text="卡路里：" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
-                <Label x:Name="lblCalories" FontSize="16" VerticalOptions="Center" TextColor="Black"/>
-            </HorizontalStackLayout>
-            <!-- 標題 -->
-            <HorizontalStackLayout>
-                <Label Text="三大營養成分比例" FontSize="18" HorizontalOptions="StartAndExpand" TextColor="Black" />
-            <Label x:Name="lblDate"
-                   FontSize="16"
-                   HorizontalOptions="End"
-                   TextColor="Gray" />
-            </HorizontalStackLayout>
-            <Grid ColumnDefinitions="*,Auto">
-                <!-- 其他營養素 -->
-                <VerticalStackLayout Grid.Column="0" Padding="20">
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="名稱：" FontSize="16" TextColor="Black"/>
-                        <Label x:Name="lblFoodName" Text="0" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="重量：" TextColor="Black" />
-                        <Label x:Name="lblWeight" Text="0" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="脂肪：" TextColor="Black" />
-                        <Label x:Name="lblFat" Text="0" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="蛋白質：" TextColor="Black" />
-                        <Label x:Name="lblProtein" Text="0" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="碳水化合物：" TextColor="Black" />
-                        <Label x:Name="lblCarbohydrate" Text="0" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                    <VerticalStackLayout  >
-                        <microcharts:ChartView
-                        x:Name="NutritionChart"
-                        HeightRequest="300"
-                        WidthRequest="300"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
-                    </VerticalStackLayout>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <!-- 頁面標題 -->
+            <Label Text="AI 分析結果"
+                   FontAttributes="Bold"
+                   FontSize="26"
+                   HorizontalOptions="Center"
+                   TextColor="#2E7D32" />
+
+            <!-- 卡路里區塊 -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True"
+                   BorderColor="#A5D6A7">
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                    <Label Text="🔥 卡路里：" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="#2E7D32" />
+                    <Label x:Name="lblCalories" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="#388E3C" />
+                </HorizontalStackLayout>
+            </Frame>
+
+            <!-- 食物資訊卡 -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="20"
+                   HasShadow="True"
+                   BorderColor="#A5D6A7">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="📋 食物資訊" 
+                           FontAttributes="Bold" 
+                           FontSize="20"
+                           TextColor="#2E7D32"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,10"/>
+
+                    <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="5" HorizontalOptions="Center">
+
+                        <Label Text="名稱：" Grid.Row="0" Grid.Column="0" TextColor="Black" FontSize="16"/>
+                        <Label x:Name="lblFoodName" Grid.Row="0" Grid.Column="1" TextColor="#388E3C" FontSize="16"/>
+
+                        <Label Text="重量：" Grid.Row="1" Grid.Column="0" TextColor="Black" FontSize="16"/>
+                        <Label x:Name="lblWeight" Grid.Row="1" Grid.Column="1" TextColor="#388E3C" FontSize="16"/>
+
+                        <Label Text="脂肪：" Grid.Row="2" Grid.Column="0" TextColor="Black" FontSize="16"/>
+                        <Label x:Name="lblFat" Grid.Row="2" Grid.Column="1" TextColor="#388E3C" FontSize="16"/>
+
+                        <Label Text="蛋白質：" Grid.Row="3" Grid.Column="0" TextColor="Black" FontSize="16"/>
+                        <Label x:Name="lblProtein" Grid.Row="3" Grid.Column="1" TextColor="#388E3C" FontSize="16"/>
+
+                        <Label Text="碳水化合物：" Grid.Row="4" Grid.Column="0" TextColor="Black" FontSize="16"/>
+                        <Label x:Name="lblCarbohydrate" Grid.Row="4" Grid.Column="1" TextColor="#388E3C" FontSize="16"/>
+
+                    </Grid>
                 </VerticalStackLayout>
-            </Grid>
-            <!-- 操作按鈕 -->
+            </Frame>
+
+            <!-- 圓餅圖 -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True"
+                   BorderColor="#A5D6A7">
+
+                <VerticalStackLayout>
+                    <Label Text="🍽️ 三大營養成分比例"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           HorizontalOptions="Center"
+                           TextColor="#2E7D32"
+                           Margin="0,0,0,10"/>
+                    <!-- 圖例：在圖上方顯示顏色與對應文字 -->
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="24" Margin="0,0,0,8">
+                        <!-- 脂肪 -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Frame x:Name="swFat" WidthRequest="16" HeightRequest="16" CornerRadius="4" Padding="0" HasShadow="False" BackgroundColor="#FFB74D"/>
+                            <Label Text="脂肪" VerticalTextAlignment="Center" TextColor="Black" FontSize="14"/>
+                        </HorizontalStackLayout>
+
+                        <!-- 碳水化合物 -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Frame x:Name="swCarb" WidthRequest="16" HeightRequest="16" CornerRadius="4" Padding="0" HasShadow="False" BackgroundColor="#81C784"/>
+                            <Label Text="碳水化合物" VerticalTextAlignment="Center" TextColor="Black" FontSize="14"/>
+                        </HorizontalStackLayout>
+
+                        <!-- 蛋白質 -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Frame x:Name="swProtein" WidthRequest="16" HeightRequest="16" CornerRadius="4" Padding="0" HasShadow="False" BackgroundColor="#64B5F6"/>
+                            <Label Text="蛋白質" VerticalTextAlignment="Center" TextColor="Black" FontSize="14"/>
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <chart:SfCircularChart x:Name="NutritionChart"
+                                           HeightRequest="280"
+                                           WidthRequest="280"
+                                           HorizontalOptions="Center">
+
+                        <chart:PieSeries 
+                            x:Name="NutritionPieSeries"
+                            XBindingPath="Name"
+                            YBindingPath="Value"
+                            ShowDataLabels="True">
+                            <chart:PieSeries.DataLabelSettings>
+                                <chart:CircularDataLabelSettings />
+                            </chart:PieSeries.DataLabelSettings>
+                        </chart:PieSeries>
+
+                    </chart:SfCircularChart>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 日期顯示 -->
+            <Label x:Name="lblDate"
+                   FontSize="14"
+                   TextColor="Gray"
+                   HorizontalOptions="End"/>
+
+            <!-- 按鈕區 -->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
-                <Button Text="清除" Clicked="OnDeleteClicked" BackgroundColor="#F44336" TextColor="White" WidthRequest="100"/>
-                <Button Text="確認" Clicked="OnConfirmClicked" BackgroundColor="#4CAF50" TextColor="White" WidthRequest="100"/>
+                <Button Text="清除" 
+                        Clicked="OnDeleteClicked"
+                        BackgroundColor="#E57373"
+                        CornerRadius="25"
+                        WidthRequest="120"
+                        TextColor="White"/>
+                <Button Text="確認"
+                        Clicked="OnConfirmClicked"
+                        BackgroundColor="#81C784"
+                        CornerRadius="25"
+                        WidthRequest="120"
+                        TextColor="White"/>
             </HorizontalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
