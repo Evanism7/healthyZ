@@ -202,9 +202,6 @@ public partial class AIAssistant : ContentPage
 
         ChatStack.Children.Add(userBubble);
         ScrollToBottom();
-
-        //把使用者訊息也存入資料庫
-        _ = SaveChatToDatabase("user", text);
     }
 
     // AI消息氣泡
@@ -270,32 +267,6 @@ public partial class AIAssistant : ContentPage
         });
     }
 
-    // 儲存聊天紀錄到 Supabase
-    private async Task SaveChatToDatabase(string role, string message)
-    {
-        try
-        {
-            var accountId = Preferences.Get("account_id", null);
-            if (string.IsNullOrEmpty(accountId))
-                return;
-
-            var chatRecord = new chat_history
-            {
-                accountId = accountId,
-                role = role,
-                message = message,
-                createdAt = DateTime.UtcNow
-            };
-
-            await _client.From<chat_history>().Insert(chatRecord);
-        }
-        catch (Exception ex)
-        {
-            AddAIMessage($"發生錯誤：{ex.Message}");
-        }
-    }
-
-
     // 儲存訊息到 Supabase
     private async Task SaveChatMessage(string role, string message)
     {
@@ -338,6 +309,36 @@ public partial class AIAssistant : ContentPage
                 AddUserMessage(chat.message);
             else if (chat.role == "ai")
                 AddAIMessage(chat.message);
+        }
+    }
+
+    private async void DeleteButton_Clicked(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert("刪除紀錄", "確定要刪除所有聊天紀錄嗎？此操作無法復原！", "刪除", "取消");
+
+        if (!confirm)
+            return;
+
+        try
+        {
+            var accountId = Preferences.Get("account_id", null);
+            if (string.IsNullOrEmpty(accountId))
+                return;
+
+            // 1️刪除 Supabase 資料庫的 chat_history
+            await _client
+                .From<chat_history>()
+                .Where(x => x.accountId == accountId)
+                .Delete();
+
+            // 2️清空介面聊天記錄
+            ChatStack.Children.Clear();
+
+            await DisplayAlert("完成", "聊天紀錄已刪除。", "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("錯誤", $"刪除失敗：{ex.Message}", "OK");
         }
     }
 

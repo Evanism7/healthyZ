@@ -69,10 +69,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Entry x:Name="InputEntry" Placeholder="請輸入訊息..." Grid.Column="0" TextColor="Black"/>
             <Button x:Name="SendButton" Text="➤" Clicked="SendButton_Clicked"
                     BackgroundColor="#A5D6A7" TextColor="Black" Grid.Column="1"/>
+            <Button x:Name="DeleteButton" Text="🗑" BackgroundColor="#A5D6A7" TextColor="Black"
+                    Grid.Column="2" Clicked="DeleteButton_Clicked"/>
         </Grid>
     </Grid>
 </ContentPage>
